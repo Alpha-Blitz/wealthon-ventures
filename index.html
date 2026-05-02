@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meridian Capital Ventures</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #042C53;
+      --ocean:  #185FA5;
+      --sky:    #378ADD;
+      --ice:    #E6F1FB;
+      --gold:   #EF9F27;
+      --white:  #F7F9FC;
+      --radius: 14px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      background: var(--white);
+      color: var(--navy);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVBAR ────────────────────────────────────────── */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 5vw;
+      height: 68px;
+      background: transparent;
+      transition: background 0.35s ease, box-shadow 0.35s ease;
+    }
+    #navbar.solid {
+      background: var(--navy);
+      box-shadow: 0 2px 20px rgba(4,44,83,0.18);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .logo-text { line-height: 1.2; }
+    .logo-text span:first-child {
+      display: block;
+      font-weight: 500;
+      font-size: 1rem;
+      color: #fff;
+    }
+    .logo-text span:last-child {
+      display: block;
+      font-weight: 400;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 0.03em;
+    }
+
+    nav.nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+    nav.nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    nav.nav-links a:hover { color: var(--gold); }
+
+    .btn-gold {
+      background: var(--gold);
+      color: var(--navy);
+      border: none;
+      border-radius: 8px;
+      padding: 0.55rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.2s;
+      display: inline-block;
+    }
+    .btn-gold:hover { opacity: 0.88; transform: translateY(-1px); }
+
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+      background: none;
+      border: none;
+    }
+    .hamburger span {
+      width: 24px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: transform 0.3s, opacity 0.3s;
+      display: block;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    #mobile-menu {
+      display: none;
+      position: fixed;
+      top: 68px; left: 0; right: 0;
+      background: var(--navy);
+      padding: 1.5rem 5vw 2rem;
+      z-index: 999;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+    #mobile-menu.open { display: block; }
+    #mobile-menu a {
+      display: block;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+    }
+    #mobile-menu a:last-child { border-bottom: none; }
+    #mobile-menu .btn-gold { margin-top: 1rem; display: block; text-align: center; }
+
+    /* ─── HERO ──────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 100px 5vw 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      top: -20%;
+      right: -10%;
+      width: 60vmin;
+      height: 60vmin;
+      background: radial-gradient(circle, rgba(56,138,221,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    #hero::after {
+      content: '';
+      position: absolute;
+      bottom: -15%;
+      left: -8%;
+      width: 50vmin;
+      height: 50vmin;
+      background: radial-gradient(circle, rgba(239,159,39,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    .hero-headline {
+      font-size: clamp(2.2rem, 5.5vw, 4rem);
+      font-weight: 500;
+      color: #fff;
+      line-height: 1.18;
+      max-width: 700px;
+    }
+    .hero-sub {
+      margin-top: 1.25rem;
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: rgba(255,255,255,0.65);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+    .hero-ctas {
+      margin-top: 2.25rem;
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: rgba(255,255,255,0.85);
+      border: 1.5px solid rgba(255,255,255,0.35);
+      border-radius: 8px;
+      padding: 0.6rem 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+      display: inline-block;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.7); color: #fff; }
+
+    .stat-pills {
+      margin-top: 3.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      justify-content: center;
+    }
+    .stat-pill {
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 50px;
+      padding: 0.55rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.85);
+    }
+    .stat-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+      flex-shrink: 0;
+    }
+    .stat-pill strong { color: #fff; font-weight: 500; }
+
+    /* ─── SECTION SHARED ────────────────────────────────── */
+    section { padding: 90px 5vw; }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--ocean);
+      margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-size: clamp(1.7rem, 3.5vw, 2.5rem);
+      font-weight: 500;
+      color: var(--navy);
+      line-height: 1.22;
+    }
+    .section-header { margin-bottom: 3rem; }
+
+    /* ─── SERVICES ──────────────────────────────────────── */
+    #services { background: var(--white); }
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .card {
+      border-radius: var(--radius);
+      padding: 2rem;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(4,44,83,0.14); }
+
+    .card-navy {
+      background: var(--navy);
+      color: #fff;
+    }
+    .card-navy .card-icon-wrap {
+      background: rgba(255,255,255,0.08);
+    }
+    .card-navy .card-tag { color: rgba(255,255,255,0.5); }
+    .card-navy .card-desc { color: rgba(255,255,255,0.7); }
+
+    .card-gold {
+      background: linear-gradient(135deg, #fffaf0, #fef3d9);
+      border: 1px solid rgba(239,159,39,0.2);
+    }
+    .card-gold .card-icon-wrap {
+      background: rgba(239,159,39,0.12);
+    }
+    .card-gold .card-tag { color: var(--ocean); }
+    .card-gold .card-name { color: var(--navy); }
+    .card-gold .card-desc { color: rgba(4,44,83,0.65); }
+    .card-gold .badge-soon {
+      position: absolute;
+      top: 1.2rem; right: 1.2rem;
+      background: var(--gold);
+      color: var(--navy);
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 20px;
+    }
+
+    .card-icon-wrap {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+    .card-icon-wrap svg { width: 22px; height: 22px; }
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 0.35rem;
+      color: #fff;
+    }
+    .card-gold .card-name { color: var(--navy); }
+    .card-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .card-desc { font-size: 0.88rem; line-height: 1.65; }
+
+    /* ─── HOW IT WORKS ──────────────────────────────────── */
+    #how { background: var(--ice); }
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      position: relative;
+    }
+    .steps-row::before {
+      content: '';
+      position: absolute;
+      top: 32px;
+      left: calc(16.66% + 32px);
+      right: calc(16.66% + 32px);
+      height: 2px;
+      background: linear-gradient(90deg, var(--ocean), var(--sky));
+      pointer-events: none;
+    }
+    .step {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 2rem 1.75rem;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(4,44,83,0.06);
+    }
+    .step-num {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-size: 1.3rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.25rem;
+      position: relative;
+      z-index: 1;
+    }
+    .step-title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 0.6rem;
+    }
+    .step-sub {
+      font-size: 0.85rem;
+      color: rgba(4,44,83,0.6);
+      line-height: 1.65;
+    }
+
+    /* ─── FOR WHO + CALCULATOR ──────────────────────────── */
+    #calc-section { background: var(--white); }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .audience-cards { display: flex; flex-direction: column; gap: 1rem; }
+    .audience-card {
+      background: var(--ice);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      border-left: 4px solid var(--ocean);
+      transition: transform 0.2s;
+    }
+    .audience-card:hover { transform: translateX(4px); }
+    .audience-card h4 {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+    .audience-card p { font-size: 0.85rem; color: rgba(4,44,83,0.65); line-height: 1.6; }
+
+    .calc-box {
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 2.25rem;
+      color: #fff;
+    }
+    .calc-box h3 {
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+    .calc-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.6);
+      margin-bottom: 0.4rem;
+    }
+    .calc-amount {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+    input[type="range"] {
+      width: 100%;
+      -webkit-appearance: none;
+      height: 4px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 2px;
+      outline: none;
+      cursor: pointer;
+      margin-bottom: 0.6rem;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--gold);
+      cursor: pointer;
+      box-shadow: 0 0 0 3px rgba(239,159,39,0.25);
+    }
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--gold);
+      cursor: pointer;
+      border: none;
+    }
+    .range-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 1.75rem;
+    }
+    .calc-results {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+    }
+    .result-box {
+      background: rgba(255,255,255,0.07);
+      border-radius: 10px;
+      padding: 1.1rem;
+    }
+    .result-box .label {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 0.4rem;
+    }
+    .result-box .value {
+      font-size: 1.35rem;
+      font-weight: 500;
+      color: var(--gold);
+    }
+    .calc-disclaimer {
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.6;
+    }
+
+    /* ─── CONTACT + FOOTER ──────────────────────────────── */
+    #contact { background: var(--navy); padding: 90px 5vw 60px; }
+    #contact .section-title { color: #fff; }
+    #contact .section-label { color: rgba(255,255,255,0.45); }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 3.5rem;
+      margin-top: 3rem;
+      align-items: start;
+    }
+    .contact-left h3 {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #fff;
+      margin-bottom: 1rem;
+      line-height: 1.35;
+    }
+    .contact-left p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .contact-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.65);
+      margin-bottom: 0.75rem;
+    }
+    .contact-detail svg { color: var(--gold); flex-shrink: 0; }
+
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 0.35rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: vertical;
+    }
+    .form-group input::placeholder,
+    .form-group textarea::placeholder { color: rgba(255,255,255,0.28); }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--sky); }
+
+    .footer-bar {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+    .footer-tagline {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.4);
+      margin-top: 0.4rem;
+      letter-spacing: 0.08em;
+    }
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: rgba(255,255,255,0.85); }
+    .footer-copy {
+      width: 100%;
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.25);
+      line-height: 1.7;
+      margin-top: 0.5rem;
+    }
+
+    /* ─── WHATSAPP FLOAT ────────────────────────────────── */
+    #wa-float {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 900;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #wa-float:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.55);
+    }
+    #wa-float svg { width: 28px; height: 28px; }
+
+    /* ─── FADE-IN ANIMATIONS ─────────────────────────────── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .fade-in-delay-1 { transition-delay: 0.1s; }
+    .fade-in-delay-2 { transition-delay: 0.2s; }
+    .fade-in-delay-3 { transition-delay: 0.3s; }
+    .fade-in-delay-4 { transition-delay: 0.4s; }
+    .fade-in-delay-5 { transition-delay: 0.5s; }
+
+    /* ─── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      nav.nav-links, .nav-cta { display: none; }
+      .hamburger { display: flex; }
+
+      .steps-row {
+        grid-template-columns: 1fr;
+      }
+      .steps-row::before { display: none; }
+
+      .two-col {
+        grid-template-columns: 1fr;
+      }
+      .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      section { padding: 64px 5vw; }
+      #contact { padding: 64px 5vw 48px; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .calc-results { grid-template-columns: 1fr; }
+      .hero-ctas { flex-direction: column; align-items: center; }
+      .footer-bar { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════ NAVBAR ════════════ -->
+<header id="navbar">
+  <a class="logo" href="#">
+    <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="19" cy="19" r="17" stroke="#378ADD" stroke-width="1.5" fill="none"/>
+      <ellipse cx="19" cy="19" rx="9" ry="17" stroke="#378ADD" stroke-width="1.5" fill="none"/>
+      <line x1="2" y1="19" x2="36" y2="19" stroke="#185FA5" stroke-width="1.5"/>
+      <path d="M4 10 Q19 6 34 10" stroke="#185FA5" stroke-width="1.2" fill="none"/>
+      <path d="M4 28 Q19 32 34 28" stroke="#185FA5" stroke-width="1.2" fill="none"/>
+      <path d="M6 5 Q19 19 32 33" stroke="#378ADD" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <circle cx="19" cy="19" r="4" fill="#EF9F27"/>
+      <circle cx="19" cy="19" r="2" fill="#fff"/>
+    </svg>
+    <div class="logo-text">
+      <span>Meridian</span>
+      <span>Capital Ventures</span>
+    </div>
+  </a>
+
+  <nav class="nav-links" aria-label="Primary">
+    <a href="#services">Services</a>
+    <a href="#how">How it works</a>
+    <a href="#calc-section">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <a href="#contact" class="btn-gold nav-cta">Get started →</a>
+  <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<div id="mobile-menu" role="navigation" aria-label="Mobile">
+  <a href="#services" class="mobile-link">Services</a>
+  <a href="#how" class="mobile-link">How it works</a>
+  <a href="#calc-section" class="mobile-link">About</a>
+  <a href="#contact" class="mobile-link">Contact</a>
+  <a href="#contact" class="btn-gold">Get started →</a>
+</div>
+
+<!-- ════════════ HERO ════════════ -->
+<section id="hero">
+  <p class="hero-eyebrow fade-in">Wealth management &amp; active trading</p>
+  <h1 class="hero-headline fade-in fade-in-delay-1">Put your money to work for you.</h1>
+  <p class="hero-sub fade-in fade-in-delay-2">You earn it every day. Let it keep earning — even while you sleep.</p>
+  <div class="hero-ctas fade-in fade-in-delay-3">
+    <a href="#contact" class="btn-gold">Let's talk →</a>
+    <a href="#how" class="btn-ghost">See how it works</a>
+  </div>
+  <div class="stat-pills fade-in fade-in-delay-4">
+    <div class="stat-pill"><span class="dot"></span><strong><span class="count" data-target="25">0</span>–<span class="count" data-target="35">0</span>%</strong>&nbsp;annual returns</div>
+    <div class="stat-pill"><span class="dot"></span>Quarterly payouts</div>
+    <div class="stat-pill"><span class="dot"></span><strong><span class="count" data-target="3">0</span></strong>&nbsp;active markets</div>
+    <div class="stat-pill"><span class="dot"></span>Secured by agreement</div>
+  </div>
+</section>
+
+<!-- ════════════ SERVICES ════════════ -->
+<section id="services">
+  <div class="section-header fade-in">
+    <p class="section-label">Our offerings</p>
+    <h2 class="section-title">What we do</h2>
+  </div>
+  <div class="cards-grid">
+    <!-- Active -->
+    <div class="card card-navy fade-in fade-in-delay-1">
+      <div class="card-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#EF9F27" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+        </svg>
+      </div>
+      <p class="card-tag" style="color:rgba(239,159,39,0.7)">Current</p>
+      <h3 class="card-name">Active Trading</h3>
+      <p class="card-desc">Forex · Commodities · Crypto — our team manages positions daily to capture market opportunities.</p>
+    </div>
+    <!-- Portfolio -->
+    <div class="card card-navy fade-in fade-in-delay-2">
+      <div class="card-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#EF9F27" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-4 0v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
+        </svg>
+      </div>
+      <p class="card-tag" style="color:rgba(239,159,39,0.7)">Current</p>
+      <h3 class="card-name">Portfolio Management</h3>
+      <p class="card-desc">A strategy built around your timeline and risk appetite. Actively monitored, regularly reviewed.</p>
+    </div>
+    <!-- Capital Growth -->
+    <div class="card card-navy fade-in fade-in-delay-3">
+      <div class="card-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#EF9F27" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/>
+        </svg>
+      </div>
+      <p class="card-tag" style="color:rgba(239,159,39,0.7)">Current</p>
+      <h3 class="card-name">Capital Growth</h3>
+      <p class="card-desc">Steady long-term returns through diversified allocation — growing your wealth compounded over time.</p>
+    </div>
+    <!-- Coming soon trio -->
+    <div class="card card-gold fade-in fade-in-delay-1">
+      <span class="badge-soon">Coming soon</span>
+      <div class="card-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#EF9F27" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73L13 2.27a2 2 0 0 0-2 0L4 6.27A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73L11 21.73a2 2 0 0 0 2 0L20 17.73A2 2 0 0 0 21 16z"/>
+        </svg>
+      </div>
+      <p class="card-tag">Upcoming</p>
+      <h3 class="card-name">Financial Consulting</h3>
+      <p class="card-desc">One-on-one sessions to map out your financial landscape and identify smart opportunities.</p>
+    </div>
+    <div class="card card-gold fade-in fade-in-delay-2">
+      <span class="badge-soon">Coming soon</span>
+      <div class="card-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#EF9F27" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <p class="card-tag">Upcoming</p>
+      <h3 class="card-name">Financial Advice</h3>
+      <p class="card-desc">Guided planning for life milestones — retirement, education, wealth transfer, and more.</p>
+    </div>
+    <div class="card card-gold fade-in fade-in-delay-3">
+      <span class="badge-soon">Coming soon</span>
+      <div class="card-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#EF9F27" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+        </svg>
+      </div>
+      <p class="card-tag">Upcoming</p>
+      <h3 class="card-name">Real Estate</h3>
+      <p class="card-desc">Curated property investment opportunities — residential, commercial, and REITs — for steady asset growth.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ HOW IT WORKS ════════════ -->
+<section id="how">
+  <div class="section-header fade-in" style="text-align:center;">
+    <p class="section-label">Process</p>
+    <h2 class="section-title">Simple as 1, 2, 3</h2>
+  </div>
+  <div class="steps-row">
+    <div class="step fade-in fade-in-delay-1">
+      <div class="step-num">1</div>
+      <h3 class="step-title">You invest a sum</h3>
+      <p class="step-sub">Like giving your savings a job to do. Choose an amount that works for your life.</p>
+    </div>
+    <div class="step fade-in fade-in-delay-2">
+      <div class="step-num">2</div>
+      <h3 class="step-title">We trade actively</h3>
+      <p class="step-sub">Forex, commodities, crypto — managed daily by our team so you don't have to think about it.</p>
+    </div>
+    <div class="step fade-in fade-in-delay-3">
+      <div class="step-num">3</div>
+      <h3 class="step-title">Returns come to you</h3>
+      <p class="step-sub">Quarterly payouts, transparent reporting, no surprises. Your money works, you collect.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ WHO IS THIS FOR + CALCULATOR ════════════ -->
+<section id="calc-section">
+  <div class="section-header fade-in">
+    <p class="section-label">Who we serve</p>
+    <h2 class="section-title">Is this for you?</h2>
+  </div>
+  <div class="two-col">
+    <div class="audience-cards">
+      <div class="audience-card fade-in fade-in-delay-1">
+        <h4>The working person</h4>
+        <p>Savings sitting idle? Make them earn alongside your salary — without quitting your job or learning trading.</p>
+      </div>
+      <div class="audience-card fade-in fade-in-delay-2">
+        <h4>The unsure investor</h4>
+        <p>Don't know where to start? We handle it. You watch your capital grow and collect returns each quarter.</p>
+      </div>
+      <div class="audience-card fade-in fade-in-delay-3">
+        <h4>The careful planner</h4>
+        <p>Beyond FDs and gold? Diversify smartly with expert guidance — higher returns, managed risk.</p>
+      </div>
+    </div>
+
+    <div class="calc-box fade-in fade-in-delay-2">
+      <h3>Returns calculator</h3>
+      <p class="calc-label">Investment amount</p>
+      <p class="calc-amount" id="calc-display">₹1,00,000</p>
+      <input type="range" id="calc-slider" min="10000" max="1000000" step="5000" value="100000" aria-label="Investment amount" />
+      <div class="range-labels"><span>₹10,000</span><span>₹10,00,000</span></div>
+      <div class="calc-results">
+        <div class="result-box">
+          <p class="label">Quarterly payout</p>
+          <p class="value" id="quarterly-val">₹7,500</p>
+        </div>
+        <div class="result-box">
+          <p class="label">Annual return</p>
+          <p class="value" id="annual-val">₹30,000</p>
+        </div>
+      </div>
+      <p class="calc-disclaimer">Illustrative only. Based on historical performance (30% annual midpoint). Past performance is not a guarantee of future returns.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════ CONTACT + FOOTER ════════════ -->
+<section id="contact">
+  <div class="section-header fade-in">
+    <p class="section-label" style="color:rgba(255,255,255,0.45)">Reach us</p>
+    <h2 class="section-title" style="color:#fff">Ready to start?</h2>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-left fade-in">
+      <h3>Let's talk about growing your capital.</h3>
+      <p>Fill in your details and we'll reach out on WhatsApp to discuss your goals, risk comfort, and the right starting point for you.</p>
+      <div class="contact-detail">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Responds within 24 hours via WhatsApp
+      </div>
+      <div class="contact-detail">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color:var(--gold)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        No commitments — just a conversation
+      </div>
+    </div>
+    <form id="contact-form" class="fade-in fade-in-delay-1" novalidate>
+      <div class="form-group">
+        <label for="f-name">Your name</label>
+        <input type="text" id="f-name" name="name" placeholder="Raj Kumar" required />
+      </div>
+      <div class="form-group">
+        <label for="f-wa">WhatsApp number</label>
+        <input type="tel" id="f-wa" name="whatsapp" placeholder="+91 98765 43210" required />
+      </div>
+      <div class="form-group">
+        <label for="f-msg">Message</label>
+        <textarea id="f-msg" name="message" rows="4" placeholder="Hi, I'd like to learn more about investing with Meridian Capital Ventures..."></textarea>
+      </div>
+      <button type="submit" class="btn-gold" style="width:100%;padding:.75rem;font-size:.95rem;">Send via WhatsApp →</button>
+    </form>
+  </div>
+
+  <div class="footer-bar fade-in">
+    <div>
+      <a class="logo" href="#" style="text-decoration:none;">
+        <svg width="32" height="32" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="19" cy="19" r="17" stroke="#378ADD" stroke-width="1.5" fill="none"/>
+          <ellipse cx="19" cy="19" rx="9" ry="17" stroke="#378ADD" stroke-width="1.5" fill="none"/>
+          <line x1="2" y1="19" x2="36" y2="19" stroke="#185FA5" stroke-width="1.5"/>
+          <path d="M4 10 Q19 6 34 10" stroke="#185FA5" stroke-width="1.2" fill="none"/>
+          <path d="M4 28 Q19 32 34 28" stroke="#185FA5" stroke-width="1.2" fill="none"/>
+          <path d="M6 5 Q19 19 32 33" stroke="#378ADD" stroke-width="2" fill="none" stroke-linecap="round"/>
+          <circle cx="19" cy="19" r="4" fill="#EF9F27"/>
+          <circle cx="19" cy="19" r="2" fill="#fff"/>
+        </svg>
+        <div class="logo-text">
+          <span>Meridian</span>
+          <span>Capital Ventures</span>
+        </div>
+      </a>
+      <p class="footer-tagline">Wealth · Growth · Future</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#calc-section">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <p class="footer-copy">
+      © 2025 Meridian Capital Ventures. All rights reserved.<br/>
+      Past performance is not a guarantee of future returns. For informational purposes only. Investment involves risk.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════ WHATSAPP FLOAT ════════════ -->
+<a id="wa-float" href="https://wa.me/?text=Hi%2C%20I%27d%20like%20to%20learn%20more%20about%20investing%20with%20Meridian%20Capital%20Ventures." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
+  </svg>
+</a>
+
+<script>
+  // ── Navbar scroll ──────────────────────────────────────
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('solid', window.scrollY > 60);
+  }, { passive: true });
+
+  // ── Hamburger ─────────────────────────────────────────
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    const open = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', open);
+    hamburger.setAttribute('aria-expanded', open);
+  });
+  document.querySelectorAll('.mobile-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    });
+  });
+
+  // ── Count-up animation ─────────────────────────────────
+  function animateCount(el) {
+    const target = parseInt(el.dataset.target, 10);
+    const duration = 1400;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.floor(ease * target);
+      if (progress < 1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  let counted = false;
+  const heroObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !counted) {
+        counted = true;
+        document.querySelectorAll('.count').forEach(animateCount);
+      }
+    });
+  }, { threshold: 0.3 });
+  const hero = document.getElementById('hero');
+  if (hero) heroObserver.observe(hero);
+
+  // ── Fade-in on scroll ─────────────────────────────────
+  const fadeEls = document.querySelectorAll('.fade-in');
+  const fadeObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  fadeEls.forEach(el => fadeObserver.observe(el));
+
+  // ── Returns Calculator ────────────────────────────────
+  const slider = document.getElementById('calc-slider');
+  const calcDisplay = document.getElementById('calc-display');
+  const quarterlyVal = document.getElementById('quarterly-val');
+  const annualVal = document.getElementById('annual-val');
+
+  function formatINR(n) {
+    if (n >= 100000) {
+      const lakh = n / 100000;
+      return '₹' + (Number.isInteger(lakh) ? lakh : lakh.toFixed(1)) + ' L';
+    }
+    return '₹' + n.toLocaleString('en-IN');
+  }
+
+  function updateCalc() {
+    const amt = parseInt(slider.value, 10);
+    const annual = Math.round(amt * 0.30);
+    const quarterly = Math.round(annual / 4);
+    calcDisplay.textContent = '₹' + amt.toLocaleString('en-IN');
+    annualVal.textContent = formatINR(annual);
+    quarterlyVal.textContent = formatINR(quarterly);
+  }
+
+  slider.addEventListener('input', updateCalc);
+  updateCalc();
+
+  // ── Contact form → WhatsApp ───────────────────────────
+  document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('f-name').value.trim();
+    const wa = document.getElementById('f-wa').value.trim();
+    const msg = document.getElementById('f-msg').value.trim();
+
+    if (!name || !wa) {
+      alert('Please enter your name and WhatsApp number.');
+      return;
+    }
+
+    const text = `Hi, I'm ${name}. My WhatsApp: ${wa}.\n\n${msg || "I'd like to learn more about investing with Meridian Capital Ventures."}`;
+    const encoded = encodeURIComponent(text);
+    window.open(`https://wa.me/?text=${encoded}`, '_blank', 'noopener');
+  });
+</script>
+</body>
+</html>
