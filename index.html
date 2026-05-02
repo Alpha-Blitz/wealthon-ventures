@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Meridian Capital Ventures</title>
+  <title>Wealthon Capital Ventures</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet" />
@@ -637,6 +637,33 @@
     .fade-in-delay-4 { transition-delay: 0.4s; }
     .fade-in-delay-5 { transition-delay: 0.5s; }
 
+    /* ─── TRUST SIGNALS ─────────────────────────────────── */
+    #trust { background: #E6F1FB; }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+    .trust-card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      border-left: 4px solid var(--navy);
+      transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+    .trust-card:hover {
+      box-shadow: 0 8px 30px rgba(4,44,83,0.12);
+      transform: translateY(-3px);
+    }
+    .trust-card-icon { margin-bottom: 1rem; }
+    .trust-card h4 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+    }
+    .trust-card p { font-size: 0.875rem; color: rgba(4,44,83,0.65); line-height: 1.65; }
+
     /* ─── RESPONSIVE ─────────────────────────────────────── */
     @media (max-width: 900px) {
       nav.nav-links, .nav-cta { display: none; }
@@ -660,6 +687,7 @@
       section { padding: 64px 5vw; }
       #contact { padding: 64px 5vw 48px; }
       .cards-grid { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: 1fr; }
       .calc-results { grid-template-columns: 1fr; }
       .hero-ctas { flex-direction: column; align-items: center; }
       .footer-bar { flex-direction: column; }
@@ -682,7 +710,7 @@
       <circle cx="19" cy="19" r="2" fill="#fff"/>
     </svg>
     <div class="logo-text">
-      <span>Meridian</span>
+      <span>Wealthon</span>
       <span>Capital Ventures</span>
     </div>
   </a>
@@ -827,6 +855,56 @@
   </div>
 </section>
 
+<!-- ════════════ TRUST SIGNALS ════════════ -->
+<section id="trust">
+  <div class="section-header fade-in" style="text-align:center;">
+    <p class="section-label">Why trust us</p>
+    <h2 class="section-title">Why trust us?</h2>
+  </div>
+  <div class="trust-grid">
+    <div class="trust-card fade-in fade-in-delay-1">
+      <div class="trust-card-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="16" r="15" stroke="#042C53" stroke-width="2" fill="none"/>
+          <path d="M10 16l4 4 8-8" stroke="#042C53" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h4>Signed agreement before we begin</h4>
+      <p>Before any funds are managed, we sit down with you, walk through every term clearly, and sign a formal agreement together. No surprises, ever.</p>
+    </div>
+    <div class="trust-card fade-in fade-in-delay-2">
+      <div class="trust-card-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="16" r="15" stroke="#042C53" stroke-width="2" fill="none"/>
+          <path d="M10 16l4 4 8-8" stroke="#042C53" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h4>Security cheque in your name</h4>
+      <p>You receive a post-dated security cheque as collateral. Your capital is backed by a tangible guarantee — not just a promise.</p>
+    </div>
+    <div class="trust-card fade-in fade-in-delay-3">
+      <div class="trust-card-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="16" r="15" stroke="#042C53" stroke-width="2" fill="none"/>
+          <path d="M10 16l4 4 8-8" stroke="#042C53" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h4>We explain everything upfront</h4>
+      <p>We discuss all terms — returns, timelines, risks and exit — before you invest a single rupee. You ask, we answer. Simple.</p>
+    </div>
+    <div class="trust-card fade-in fade-in-delay-4">
+      <div class="trust-card-icon">
+        <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="16" cy="16" r="15" stroke="#042C53" stroke-width="2" fill="none"/>
+          <path d="M10 16l4 4 8-8" stroke="#042C53" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h4>Invest only when you're ready</h4>
+      <p>There's no rush, no sales pressure. Take your time, ask questions, involve your family if you want. We're here when you decide.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ════════════ WHO IS THIS FOR + CALCULATOR ════════════ -->
 <section id="calc-section">
   <div class="section-header fade-in">
@@ -865,7 +943,7 @@
           <p class="value" id="annual-val">₹30,000</p>
         </div>
       </div>
-      <p class="calc-disclaimer">Illustrative only. Based on historical performance (30% annual midpoint). Past performance is not a guarantee of future returns.</p>
+      <p class="calc-disclaimer">Illustrative only — wealthonventures.com. Based on historical performance (30% annual midpoint). Past performance is not a guarantee of future returns.</p>
     </div>
   </div>
 </section>
@@ -900,7 +978,7 @@
       </div>
       <div class="form-group">
         <label for="f-msg">Message</label>
-        <textarea id="f-msg" name="message" rows="4" placeholder="Hi, I'd like to learn more about investing with Meridian Capital Ventures..."></textarea>
+        <textarea id="f-msg" name="message" rows="4" placeholder="Hi Wealthon Capital Ventures, I found you on wealthonventures.com and I'd like to learn more about investing with you."></textarea>
       </div>
       <button type="submit" class="btn-gold" style="width:100%;padding:.75rem;font-size:.95rem;">Send via WhatsApp →</button>
     </form>
@@ -920,11 +998,11 @@
           <circle cx="19" cy="19" r="2" fill="#fff"/>
         </svg>
         <div class="logo-text">
-          <span>Meridian</span>
+          <span>Wealthon</span>
           <span>Capital Ventures</span>
         </div>
       </a>
-      <p class="footer-tagline">Wealth · Growth · Future</p>
+      <p class="footer-tagline">Wealth · Growth · Trust</p>
     </div>
     <ul class="footer-links">
       <li><a href="#services">Services</a></li>
@@ -933,14 +1011,14 @@
       <li><a href="#contact">Contact</a></li>
     </ul>
     <p class="footer-copy">
-      © 2025 Meridian Capital Ventures. All rights reserved.<br/>
-      Past performance is not a guarantee of future returns. For informational purposes only. Investment involves risk.
+      © 2025 Wealthon Capital Ventures · wealthonventures.com<br/>
+      Past performance is not a guarantee of future returns. All investments are subject to market risk. We provide a signed agreement and security cheque before any funds are managed. For informational purposes only.
     </p>
   </div>
 </section>
 
 <!-- ════════════ WHATSAPP FLOAT ════════════ -->
-<a id="wa-float" href="https://wa.me/?text=Hi%2C%20I%27d%20like%20to%20learn%20more%20about%20investing%20with%20Meridian%20Capital%20Ventures." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+<a id="wa-float" href="https://wa.me/?text=Hi%20Wealthon%20Capital%20Ventures%2C%20I%20found%20you%20on%20wealthonventures.com%20and%20I%27d%20like%20to%20learn%20more%20about%20investing%20with%20you." target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/>
   </svg>
@@ -1046,7 +1124,7 @@
       return;
     }
 
-    const text = `Hi, I'm ${name}. My WhatsApp: ${wa}.\n\n${msg || "I'd like to learn more about investing with Meridian Capital Ventures."}`;
+    const text = `Hi, I'm ${name}. My WhatsApp: ${wa}.\n\n${msg || "Hi Wealthon Capital Ventures, I found you on wealthonventures.com and I'd like to learn more about investing with you."}`;
     const encoded = encodeURIComponent(text);
     window.open(`https://wa.me/?text=${encoded}`, '_blank', 'noopener');
   });
