@@ -155,8 +155,9 @@
     }
     .hero-visual { display: flex; align-items: center; justify-content: flex-end; }
     .hero-visual img {
-      width: 100%; max-width: 540px; border-radius: 14px;
-      box-shadow: 0 28px 72px rgba(0,0,0,.5); display: block;
+      width: 100%; max-width: 420px; display: block;
+      filter: brightness(0) invert(1);
+      opacity: 0.22;
     }
     @media(max-width:960px) {
       .hero-inner { grid-template-columns: 1fr; gap: 44px; }
@@ -181,7 +182,7 @@
       transition: transform .25s, box-shadow .25s;
     }
     .card-nv:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(4,44,83,.26); }
-    .card-nv .ci { font-size: 26px; margin-bottom: 18px; }
+    .card-nv .ci { margin-bottom: 18px; color: var(--sky); display: block; line-height: 0; }
     .card-nv h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 10px; }
     .card-nv p { font-size: 14px; color: rgba(255,255,255,.62); line-height: 1.68; }
     .card-gd {
@@ -195,7 +196,7 @@
       color: var(--navy); font-size: 9px; font-weight: 700; letter-spacing: .1em;
       text-transform: uppercase; padding: 3px 8px; border-radius: 4px;
     }
-    .card-gd .ci { font-size: 26px; margin-bottom: 18px; }
+    .card-gd .ci { margin-bottom: 18px; color: var(--ocean); display: block; line-height: 0; }
     .card-gd h3 { font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
     .card-gd p { font-size: 13px; color: #7a6840; }
     @media(max-width:900px) { .cards3 { grid-template-columns: 1fr 1fr; } }
@@ -250,7 +251,7 @@
       width: 30px; height: 30px; background: var(--ice);
       border-radius: 50%; display: flex; align-items: center;
       justify-content: center; margin-bottom: 14px;
-      font-size: 13px; font-weight: 700; color: var(--navy);
+      color: var(--navy);
     }
     .tc h3 { font-size: 15.5px; font-weight: 600; color: var(--navy); margin-bottom: 9px; }
     .tc p { font-size: 13.5px; color: #4a6b8a; line-height: 1.68; }
@@ -348,7 +349,7 @@
       transition: background .25s, transform .25s;
     }
     .algo-card:hover { background: rgba(255,255,255,.1); transform: translateY(-4px); }
-    .algo-card .ac-icon { font-size: 28px; margin-bottom: 18px; display: block; }
+    .algo-card .ac-icon { margin-bottom: 18px; display: block; line-height: 0; color: var(--gold); }
     .algo-card h3 { font-size: 16.5px; font-weight: 600; color: #fff; margin-bottom: 10px; }
     .algo-card p { font-size: 13.5px; color: rgba(255,255,255,.58); line-height: 1.68; }
     .algo-badge {
@@ -512,7 +513,7 @@
         <p class="hero-fine fi">Performance figures are historical and market-linked. No fixed or guaranteed returns.</p>
       </div>
       <div class="hero-visual fi">
-        <img src="banner.png" alt="Wealthon Capital Ventures. Clear Direction. Smart Decisions. Stronger Future.">
+        <img src="heroimg.png" alt="Wealthon Capital Ventures">
       </div>
     </div>
   </div>
@@ -528,17 +529,17 @@
     </div>
     <div class="cards3">
       <div class="card-nv fi">
-        <div class="ci">📈</div>
+        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
         <h3>Active Trading</h3>
-        <p>We trade across Forex, Commodities and Crypto markets daily. Exness and Delta platforms. Internationally regulated infrastructure.</p>
+        <p>We trade across Forex, Commodities and Crypto markets daily on internationally regulated platforms and infrastructure.</p>
       </div>
       <div class="card-nv fi">
-        <div class="ci">🗂</div>
+        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
         <h3>Portfolio Management</h3>
         <p>Each capital partner's allocation is managed individually, tailored to their entry level, timeline and risk appetite.</p>
       </div>
       <div class="card-nv fi">
-        <div class="ci">🤝</div>
+        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
         <h3>Capital Partnerships</h3>
         <p>Selected individuals partner with the firm under a formal profit-sharing MoU. Referral and relationship-gated. No cold onboarding.</p>
       </div>
@@ -546,19 +547,19 @@
     <div class="cards3">
       <div class="card-gd fi">
         <span class="badge">Coming Soon</span>
-        <div class="ci">💡</div>
+        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></div>
         <h3>Financial Consulting</h3>
         <p>Strategic money guidance</p>
       </div>
       <div class="card-gd fi">
         <span class="badge">Coming Soon</span>
-        <div class="ci">📊</div>
+        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
         <h3>Financial Advisory</h3>
         <p>Planning beyond trading</p>
       </div>
       <div class="card-gd fi">
         <span class="badge">Coming Soon</span>
-        <div class="ci">🏠</div>
+        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
         <h3>Real Estate</h3>
         <p>Property as an asset class</p>
       </div>
@@ -612,22 +613,22 @@
     <p class="section-subtitle fi">Every capital partner is protected by formal agreements before a single rupee moves.</p>
     <div class="trust-grid">
       <div class="tc fi">
-        <div class="tc-icon">✓</div>
+        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h3>Formal Agreement First</h3>
         <p>We sit down, discuss every term, and sign a Capital Partnership MoU before anything begins. You know exactly what you're entering.</p>
       </div>
       <div class="tc fi">
-        <div class="tc-icon">✓</div>
+        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h3>Explicit Risk Disclosure</h3>
         <p>A separate Risk Disclosure Statement is signed by every partner. No fixed returns are ever promised. This is documented, not just said.</p>
       </div>
       <div class="tc fi">
-        <div class="tc-icon">✓</div>
+        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h3>Clean Capital Structure</h3>
         <p>All partner capital is held in a dedicated firm current account, never mixed with personal funds. Clean paper trail. Full separation.</p>
       </div>
       <div class="tc fi">
-        <div class="tc-icon">✓</div>
+        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h3>Quarterly P&amp;L Reporting</h3>
         <p>Every quarter, we share documented trading performance. You see the numbers, not just the distribution. Transparency is non-negotiable.</p>
       </div>
@@ -716,40 +717,40 @@
     <p class="section-subtitle fi">Our trading approach is systematic and research-driven. We apply quantitative models and algorithmic strategies across every market we operate in, removing emotion from execution.</p>
     <div class="algo-grid">
       <div class="algo-card fi">
-        <span class="ac-icon">⚙️</span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>
         <span class="algo-badge">Core methodology</span>
         <h3>Algorithmic Execution</h3>
         <p>Trades are executed through rule-based systems built on statistical models. Speed, precision and consistency — without manual bias interfering at the moment of execution.</p>
       </div>
       <div class="algo-card fi">
-        <span class="ac-icon">📐</span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
         <span class="algo-badge">Research</span>
         <h3>Quantitative Finance</h3>
         <p>We use mathematical frameworks to model market behaviour, price risk and identify statistical edges. Every strategy is back-tested before it touches live capital.</p>
       </div>
       <div class="algo-card fi">
-        <span class="ac-icon">🛡️</span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
         <span class="algo-badge">Risk</span>
         <h3>Systematic Risk Management</h3>
         <p>Position sizing, drawdown limits and volatility controls are built into the system. Risk parameters are defined before a trade opens, not after it moves against us.</p>
       </div>
       <div class="algo-card fi">
-        <span class="ac-icon">📊</span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
         <span class="algo-badge">Multi-market</span>
         <h3>Cross-Market Strategies</h3>
         <p>Our models run across Forex, Commodities and Crypto simultaneously. Diversification is built at the strategy level, not just the asset level.</p>
       </div>
       <div class="algo-card fi">
-        <span class="ac-icon">🔄</span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
         <span class="algo-badge">Continuous</span>
         <h3>Strategy Iteration</h3>
         <p>Market conditions shift. Our models are regularly reviewed, stress-tested and updated to reflect current volatility regimes and structural market changes.</p>
       </div>
       <div class="algo-card fi">
-        <span class="ac-icon">🔒</span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
         <span class="algo-badge">Infrastructure</span>
         <h3>Regulated Platforms</h3>
-        <p>All algorithmic activity runs through Exness and Delta — internationally regulated, low-latency platforms built for professional trading operations.</p>
+        <p>All algorithmic activity runs through internationally regulated, low-latency platforms built for professional trading operations.</p>
       </div>
     </div>
   </div>
@@ -781,7 +782,7 @@
         <div class="founder fi">
           <div class="f-av">SH</div>
           <div class="f-name">Sumanth Hegde</div>
-          <div class="f-title">Chief Technology Officer</div>
+          <div class="f-title">Technical Head</div>
           <div class="f-role">Technology, Systems, Digital Infrastructure</div>
           <p class="f-quote">"Technology should make trust transparent. Every system we build puts clarity and security first."</p>
         </div>
@@ -814,14 +815,14 @@
       </form>
       <div class="cdetails fi">
         <div class="cd">
-          <div class="cd-icon">✉️</div>
+          <div class="cd-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <div class="cd-txt">
             <label>Email</label>
             <a href="mailto:hello@wealthonventures.com">hello@wealthonventures.com</a>
           </div>
         </div>
         <div class="cd">
-          <div class="cd-icon">💬</div>
+          <div class="cd-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
           <div class="cd-txt">
             <label>WhatsApp</label>
             <a href="https://wa.me/919035373664" target="_blank" rel="noopener">+91 90353 73664</a>
