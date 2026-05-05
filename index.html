@@ -40,11 +40,10 @@
     }
     .section-subtitle { font-size: 17px; color: #4a6b8a; max-width: 540px; line-height: 1.7; }
 
-    /* ── Fade-in (only for below-the-fold elements) ── */
-    .fi { opacity: 0; transform: translateY(22px); transition: opacity .6s ease, transform .6s ease; }
-    .fi.vis { opacity: 1; transform: none; }
-    /* Hero content is always visible — no animation needed above the fold */
-    #hero .fi { opacity: 1; transform: none; }
+    /* ── Scroll fade-in ── */
+    .fi { opacity: 1; transform: none; }
+    .fi.anim { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .fi.anim.vis { opacity: 1; transform: none; }
 
     /* ═══════════════════════════
        NAVBAR
@@ -778,18 +777,25 @@
     a.addEventListener('click', () => document.getElementById('nav-links').classList.remove('open'));
   });
 
-  // Fade-in on scroll
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach((e, i) => {
-      if (e.isIntersecting) {
-        setTimeout(() => e.target.classList.add('vis'), i * 60);
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0 });
-  document.querySelectorAll('.fi').forEach(el => io.observe(el));
-  // Failsafe: show everything after 1.5s regardless
-  setTimeout(() => document.querySelectorAll('.fi').forEach(el => el.classList.add('vis')), 1500);
+  // Scroll animations — only for sections below the fold, applied after load
+  // so hero content is NEVER hidden
+  window.addEventListener('load', () => {
+    const belowFold = document.querySelectorAll(
+      '#what .fi, #how .fi, #trust .fi, #calc .fi, #about .fi, #who .fi, #contact .fi'
+    );
+    belowFold.forEach(el => el.classList.add('anim'));
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('vis'), i * 60);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+    belowFold.forEach(el => io.observe(el));
+    // Fallback: show all after 2s
+    setTimeout(() => belowFold.forEach(el => el.classList.add('vis')), 2000);
+  });
 
   // Count-up hero stat
   function countUp(el, to, ms, suffix) {
