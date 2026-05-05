@@ -649,7 +649,7 @@
     <div class="calc-card">
       <p class="calc-lbl">Capital amount</p>
       <div class="calc-amt" id="c-amt">₹5,00,000</div>
-      <input type="range" id="c-slider" min="100000" max="5000000" step="50000" value="500000">
+      <input type="range" id="c-slider" min="100000" max="5000000" step="50000" value="500000" oninput="runCalc()" onchange="runCalc()">
       <div class="range-row"><span>₹1,00,000</span><span>₹50,00,000</span></div>
       <div class="calc-outs">
         <div class="co">
@@ -688,7 +688,7 @@
       </div>
       <div class="founder fi">
         <div class="f-av">S</div>
-        <div class="f-name">Suhas</div>
+        <div class="f-name">Suhan S.K.</div>
         <div class="f-title">Co-Founder &amp; Analyst</div>
         <div class="f-role">Trading, Research, Portfolio Analysis</div>
         <p class="f-quote">"Every trade is backed by research, discipline and a clear risk framework. Performance is earned, not promised."</p>
@@ -819,7 +819,7 @@
     setTimeout(() => countUp(document.getElementById('stat-markets'), 3, 1200, ' markets'), 500);
   });
 
-  // Calculator
+  // Calculator — defined globally so oninput="runCalc()" on the element works too
   function inr(n) {
     n = Math.round(n).toString();
     if (n.length <= 3) return '₹' + n;
@@ -828,13 +828,20 @@
     return '₹' + rest + ',' + last3;
   }
   function runCalc() {
-    const cap = +document.getElementById('c-slider').value;
+    const slider = document.getElementById('c-slider');
+    if (!slider) return;
+    const cap = +slider.value;
     document.getElementById('c-amt').textContent = inr(cap);
     document.getElementById('c-ann').textContent = inr(cap * 0.30);
     document.getElementById('c-qtr').textContent = inr(cap * 0.075);
     document.getElementById('c-3yr').textContent = inr(cap * Math.pow(1.30, 3));
   }
-  document.getElementById('c-slider').addEventListener('input', runCalc);
+  document.addEventListener('DOMContentLoaded', function() {
+    var s = document.getElementById('c-slider');
+    if (s) { s.addEventListener('input', runCalc); s.addEventListener('change', runCalc); }
+    runCalc();
+  });
+  // Run once immediately as well (script is at end of body, DOM is ready)
   runCalc();
 
   // Contact form → WhatsApp
