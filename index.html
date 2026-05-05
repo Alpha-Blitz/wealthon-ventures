@@ -132,10 +132,10 @@
       text-decoration: none; display: inline-block; transition: border-color .2s, color .2s;
     }
     .btn-ghost:hover { border-color: rgba(255,255,255,.65); color: #fff; }
-    .hero-stats { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 20px; }
+    .hero-stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 20px; }
     .stat-pill {
       background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.11);
-      border-radius: 8px; padding: 16px 20px; min-width: 148px;
+      border-radius: 8px; padding: 16px 18px;
     }
     .stat-pill .sv {
       font-size: 22px; font-weight: 700; color: var(--gold);
@@ -164,7 +164,7 @@
       .hero-visual img { max-width: 100%; }
     }
     @media(max-width:640px) {
-      .hero-stats { display: grid; grid-template-columns: 1fr 1fr; }
+      .hero-stats { grid-template-columns: 1fr 1fr; }
     }
 
     /* ═══════════════════════════
@@ -331,12 +331,45 @@
     }
 
     /* ═══════════════════════════
+       ALGO TRADING
+    ═══════════════════════════ */
+    #algo {
+      padding: 100px 0; background: var(--navy);
+      background-image:
+        repeating-linear-gradient(45deg,transparent,transparent 80px,rgba(255,255,255,.012) 80px,rgba(255,255,255,.012) 81px),
+        repeating-linear-gradient(-45deg,transparent,transparent 80px,rgba(255,255,255,.012) 80px,rgba(255,255,255,.012) 81px);
+    }
+    #algo .section-title { color: #fff; }
+    #algo .section-subtitle { color: rgba(255,255,255,.58); max-width: 620px; }
+    .algo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-top: 52px; }
+    .algo-card {
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px; padding: 30px 26px;
+      transition: background .25s, transform .25s;
+    }
+    .algo-card:hover { background: rgba(255,255,255,.1); transform: translateY(-4px); }
+    .algo-card .ac-icon { font-size: 28px; margin-bottom: 18px; display: block; }
+    .algo-card h3 { font-size: 16.5px; font-weight: 600; color: #fff; margin-bottom: 10px; }
+    .algo-card p { font-size: 13.5px; color: rgba(255,255,255,.58); line-height: 1.68; }
+    .algo-badge {
+      display: inline-block; background: rgba(239,159,39,.15);
+      border: 1px solid rgba(239,159,39,.3); color: var(--gold);
+      font-size: 10px; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px;
+    }
+    @media(max-width:900px) { .algo-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:580px) { .algo-grid { grid-template-columns: 1fr; } }
+
+    /* ═══════════════════════════
        ABOUT / FOUNDERS
     ═══════════════════════════ */
     #about { padding: 100px 0; background: #fff; }
-    .founders { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; margin-top: 52px; }
-    @media(max-width:900px) { .founders { grid-template-columns: repeat(2,1fr); } }
-    @media(max-width:580px) { .founders { grid-template-columns: 1fr; } }
+    .founders { margin-top: 52px; display: flex; flex-direction: column; gap: 24px; }
+    .founder-lead { display: flex; justify-content: center; }
+    .founder-lead .founder { width: 100%; max-width: 420px; }
+    .founder-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media(max-width:640px) { .founder-row { grid-template-columns: 1fr; } }
+    @media(max-width:640px) { .founder-lead .founder { max-width: 100%; } }
     .founder {
       border-top: 3px solid var(--navy); border-radius: 0 0 10px 10px;
       padding: 32px; background: var(--cloud);
@@ -673,32 +706,83 @@
   </div>
 </section>
 
+<!-- ── ALGO TRADING ── -->
+<section id="algo">
+  <div class="container">
+    <span class="section-tag" style="color:rgba(55,138,221,.75)">The edge</span>
+    <h2 class="section-title fi">Built on algorithms. Backed by data.</h2>
+    <p class="section-subtitle fi">Our trading approach is systematic and research-driven. We apply quantitative models and algorithmic strategies across every market we operate in, removing emotion from execution.</p>
+    <div class="algo-grid">
+      <div class="algo-card fi">
+        <span class="ac-icon">⚙️</span>
+        <span class="algo-badge">Core methodology</span>
+        <h3>Algorithmic Execution</h3>
+        <p>Trades are executed through rule-based systems built on statistical models. Speed, precision and consistency — without manual bias interfering at the moment of execution.</p>
+      </div>
+      <div class="algo-card fi">
+        <span class="ac-icon">📐</span>
+        <span class="algo-badge">Research</span>
+        <h3>Quantitative Finance</h3>
+        <p>We use mathematical frameworks to model market behaviour, price risk and identify statistical edges. Every strategy is back-tested before it touches live capital.</p>
+      </div>
+      <div class="algo-card fi">
+        <span class="ac-icon">🛡️</span>
+        <span class="algo-badge">Risk</span>
+        <h3>Systematic Risk Management</h3>
+        <p>Position sizing, drawdown limits and volatility controls are built into the system. Risk parameters are defined before a trade opens, not after it moves against us.</p>
+      </div>
+      <div class="algo-card fi">
+        <span class="ac-icon">📊</span>
+        <span class="algo-badge">Multi-market</span>
+        <h3>Cross-Market Strategies</h3>
+        <p>Our models run across Forex, Commodities and Crypto simultaneously. Diversification is built at the strategy level, not just the asset level.</p>
+      </div>
+      <div class="algo-card fi">
+        <span class="ac-icon">🔄</span>
+        <span class="algo-badge">Continuous</span>
+        <h3>Strategy Iteration</h3>
+        <p>Market conditions shift. Our models are regularly reviewed, stress-tested and updated to reflect current volatility regimes and structural market changes.</p>
+      </div>
+      <div class="algo-card fi">
+        <span class="ac-icon">🔒</span>
+        <span class="algo-badge">Infrastructure</span>
+        <h3>Regulated Platforms</h3>
+        <p>All algorithmic activity runs through Exness and Delta — internationally regulated, low-latency platforms built for professional trading operations.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── ABOUT / FOUNDERS ── -->
 <section id="about">
   <div class="container">
     <span class="section-tag">Leadership</span>
     <h2 class="section-title fi">The people behind Wealthon.</h2>
     <div class="founders">
-      <div class="founder fi">
-        <div class="f-av">P</div>
-        <div class="f-name">Prathik R.N.</div>
-        <div class="f-title">Co-Founder &amp; Strategist</div>
-        <div class="f-role">Business, Operations, Client Relations</div>
-        <p class="f-quote">"Wealthon was built on one belief: that everyday people deserve access to professionally managed capital growth."</p>
+      <div class="founder-lead">
+        <div class="founder fi">
+          <div class="f-av">S</div>
+          <div class="f-name">Suhan S.K.</div>
+          <div class="f-title">Co-Founder &amp; Analyst</div>
+          <div class="f-role">Trading, Research, Portfolio Analysis</div>
+          <p class="f-quote">"Every trade is backed by research, discipline and a clear risk framework. Performance is earned, not promised."</p>
+        </div>
       </div>
-      <div class="founder fi">
-        <div class="f-av">S</div>
-        <div class="f-name">Suhan S.K.</div>
-        <div class="f-title">Co-Founder &amp; Analyst</div>
-        <div class="f-role">Trading, Research, Portfolio Analysis</div>
-        <p class="f-quote">"Every trade is backed by research, discipline and a clear risk framework. Performance is earned, not promised."</p>
-      </div>
-      <div class="founder fi">
-        <div class="f-av">SH</div>
-        <div class="f-name">Sumanth Hegde</div>
-        <div class="f-title">Chief Technology Officer</div>
-        <div class="f-role">Technology, Systems, Digital Infrastructure</div>
-        <p class="f-quote">"Technology should make trust transparent. Every system we build puts clarity and security first."</p>
+      <div class="founder-row">
+        <div class="founder fi">
+          <div class="f-av">P</div>
+          <div class="f-name">Prathik R.N.</div>
+          <div class="f-title">Co-Founder &amp; Strategist</div>
+          <div class="f-role">Business, Operations, Client Relations</div>
+          <p class="f-quote">"Wealthon was built on one belief: that everyday people deserve access to professionally managed capital growth."</p>
+        </div>
+        <div class="founder fi">
+          <div class="f-av">SH</div>
+          <div class="f-name">Sumanth Hegde</div>
+          <div class="f-title">Chief Technology Officer</div>
+          <div class="f-role">Technology, Systems, Digital Infrastructure</div>
+          <p class="f-quote">"Technology should make trust transparent. Every system we build puts clarity and security first."</p>
+        </div>
       </div>
     </div>
   </div>
@@ -819,30 +903,30 @@
     setTimeout(() => countUp(document.getElementById('stat-markets'), 3, 1200, ' markets'), 500);
   });
 
-  // Calculator — defined globally so oninput="runCalc()" on the element works too
+  // Calculator
   function inr(n) {
     n = Math.round(n).toString();
     if (n.length <= 3) return '₹' + n;
-    const last3 = n.slice(-3);
-    const rest = n.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, ',');
+    var last3 = n.slice(-3);
+    var rest = n.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, ',');
     return '₹' + rest + ',' + last3;
   }
   function runCalc() {
-    const slider = document.getElementById('c-slider');
-    if (!slider) return;
-    const cap = +slider.value;
+    var s = document.getElementById('c-slider');
+    if (!s) return;
+    var cap = parseFloat(s.value);
     document.getElementById('c-amt').textContent = inr(cap);
     document.getElementById('c-ann').textContent = inr(cap * 0.30);
     document.getElementById('c-qtr').textContent = inr(cap * 0.075);
-    document.getElementById('c-3yr').textContent = inr(cap * Math.pow(1.30, 3));
+    document.getElementById('c-3yr').textContent = inr(cap * 2.197);
   }
-  document.addEventListener('DOMContentLoaded', function() {
-    var s = document.getElementById('c-slider');
-    if (s) { s.addEventListener('input', runCalc); s.addEventListener('change', runCalc); }
+  // Script is at end of body — DOM is already ready, bind directly
+  var cSlider = document.getElementById('c-slider');
+  if (cSlider) {
+    cSlider.addEventListener('input', runCalc);
+    cSlider.addEventListener('change', runCalc);
     runCalc();
-  });
-  // Run once immediately as well (script is at end of body, DOM is ready)
-  runCalc();
+  }
 
   // Contact form → WhatsApp
   document.getElementById(‘cform’).addEventListener(‘submit’, function(e) {
