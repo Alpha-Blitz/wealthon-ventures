@@ -646,7 +646,7 @@
     <span class="section-tag" style="color:rgba(55,138,221,.75)">Returns illustration</span>
     <h2 class="section-title">See what performance-linked<br>profit sharing could look like.</h2>
     <p class="calc-dis">Illustrative only. Based on historical performance of 25–35% annually. Not a guarantee of future returns.</p>
-    <div class="calc-card fi">
+    <div class="calc-card">
       <p class="calc-lbl">Capital amount</p>
       <div class="calc-amt" id="c-amt">₹5,00,000</div>
       <input type="range" id="c-slider" min="100000" max="5000000" step="50000" value="500000">
@@ -820,16 +820,21 @@
   });
 
   // Calculator
-  const slider = document.getElementById('c-slider');
-  function inr(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+  function inr(n) {
+    n = Math.round(n).toString();
+    if (n.length <= 3) return '₹' + n;
+    const last3 = n.slice(-3);
+    const rest = n.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, ',');
+    return '₹' + rest + ',' + last3;
+  }
   function runCalc() {
-    const cap = +slider.value;
+    const cap = +document.getElementById('c-slider').value;
     document.getElementById('c-amt').textContent = inr(cap);
     document.getElementById('c-ann').textContent = inr(cap * 0.30);
     document.getElementById('c-qtr').textContent = inr(cap * 0.075);
     document.getElementById('c-3yr').textContent = inr(cap * Math.pow(1.30, 3));
   }
-  slider.addEventListener('input', runCalc);
+  document.getElementById('c-slider').addEventListener('input', runCalc);
   runCalc();
 
   // Contact form → WhatsApp
