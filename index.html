@@ -7,452 +7,632 @@
   <title>Wealthon Capital Ventures | Where capital finds direction.</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:      #080808;
+      --bg2:     #0F0F0F;
+      --bg3:     #111111;
+      --gold:    #C9A84C;
+      --gold-b:  #EF9F27;
+      --gold-s:  #2A2210;
+      --text:    #F0EDE6;
+      --text2:   #8A8070;
+      --text3:   #4A4438;
+      --div:     #1E1C18;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
-      font-weight: 400;
-      color: #042C53;
-      background: #fff;
-      line-height: 1.6;
+      font-weight: 300;
+      color: var(--text2);
+      background: var(--bg);
+      line-height: 1.8;
       overflow-x: hidden;
     }
-    :root {
-      --navy: #042C53;
-      --ocean: #185FA5;
-      --sky: #378ADD;
-      --ice: #E6F1FB;
-      --gold: #EF9F27;
-      --cloud: #F7F9FC;
+
+    /* Noise texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.028;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 200px;
     }
 
-    /* ── Utility ── */
-    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
-    .section-tag {
-      font-size: 11px; letter-spacing: .13em; text-transform: uppercase;
-      font-weight: 500; color: var(--sky); margin-bottom: 14px; display: block;
-    }
-    .section-title {
-      font-size: clamp(28px,4vw,44px); font-weight: 700; color: var(--navy);
-      margin-bottom: 14px; line-height: 1.15; letter-spacing: -.02em;
-    }
-    .section-subtitle { font-size: 17px; color: #4a6b8a; max-width: 540px; line-height: 1.7; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 32px; }
 
-    /* ── Scroll fade-in ── */
+    /* Typography helpers */
+    .eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold);
+      display: block;
+      margin-bottom: 22px;
+    }
+    .s-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(34px, 4vw, 52px);
+      color: var(--text);
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      margin-bottom: 18px;
+    }
+    .s-sub {
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      color: var(--text2);
+      max-width: 520px;
+      line-height: 1.8;
+    }
+    .s-head { margin-bottom: 60px; }
+    .gold-rule { width: 48px; height: 1px; background: var(--gold); opacity: 0.4; margin: 20px 0 28px; }
+
+    /* Section dividers */
+    .s-div { height: 1px; background: linear-gradient(to right, transparent, rgba(201,168,76,0.12), transparent); }
+
+    /* Scroll animations */
     .fi { opacity: 1; transform: none; }
-    .fi.anim { opacity: 0; transform: translateY(20px); transition: opacity .55s ease, transform .55s ease; }
+    .fi.anim { opacity: 0; transform: translateY(22px); transition: opacity 0.8s ease, transform 0.8s ease; }
     .fi.anim.vis { opacity: 1; transform: none; }
 
-    /* ═══════════════════════════
-       NAVBAR
-    ═══════════════════════════ */
+    /* ═══════════════════ NAVBAR ═══════════════════ */
     #nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      padding: 26px 0;
+      background: transparent;
+      transition: background 0.4s ease, padding 0.3s ease, backdrop-filter 0.4s ease;
+    }
+    #nav.scrolled {
       padding: 16px 0;
-      background: var(--navy);
-      box-shadow: 0 2px 20px rgba(0,0,0,.25);
-      transition: padding .3s;
+      background: rgba(8,8,8,0.95);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--div);
     }
-    #nav.scrolled { padding: 12px 0; }
     .nav-inner { display: flex; align-items: center; justify-content: space-between; }
-    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-    .nav-logo img { height: 40px; border-radius: 6px; display: block; }
-    .logo-text .brand { font-size: 18px; font-weight: 500; color: #fff; letter-spacing: -.01em; display: block; }
-    .logo-text .sub { font-size: 10.5px; font-weight: 400; color: rgba(255,255,255,.5); letter-spacing: .05em; }
-    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-logo { text-decoration: none; display: flex; align-items: center; gap: 12px; }
+    .nav-logo img { height: 36px; display: block; }
+    .nav-links { display: flex; align-items: center; gap: 34px; list-style: none; }
     .nav-links a {
-      color: rgba(255,255,255,.82); text-decoration: none;
-      font-size: 14px; font-weight: 500; transition: color .2s;
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--text2); text-decoration: none; transition: color 0.2s;
     }
-    .nav-links a:hover { color: #fff; }
+    .nav-links a:hover { color: var(--gold); }
     .nav-cta {
-      background: var(--gold) !important; color: var(--navy) !important;
-      padding: 10px 20px; border-radius: 6px; font-weight: 600 !important;
-      transition: background .2s, transform .2s !important;
+      border: 1px solid rgba(201,168,76,0.55) !important;
+      color: var(--gold) !important;
+      padding: 9px 20px;
+      transition: background 0.25s, color 0.25s !important;
     }
-    .nav-cta:hover { background: #f5ab3a !important; transform: translateY(-1px); }
+    .nav-cta:hover { background: var(--gold) !important; color: var(--bg) !important; }
     .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
-    .burger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s; }
+    .burger span { display: block; width: 22px; height: 1px; background: var(--text2); transition: all 0.3s; }
     @media(max-width:768px) {
       .burger { display: flex; }
       .nav-links {
         display: none; position: absolute; top: 100%; left: 0; right: 0;
-        background: var(--navy); flex-direction: column; padding: 20px 24px 28px;
-        gap: 18px; border-top: 1px solid rgba(255,255,255,.1);
+        background: rgba(8,8,8,0.98); backdrop-filter: blur(20px);
+        flex-direction: column; padding: 24px 32px 32px; gap: 20px;
+        border-top: 1px solid var(--div);
       }
       .nav-links.open { display: flex; }
       .nav-links li { width: 100%; }
-      .nav-links a { font-size: 16px; display: block; }
+      .nav-links a { font-size: 13px; display: block; }
       .nav-cta { text-align: center; }
     }
 
-    /* ═══════════════════════════
-       HERO
-    ═══════════════════════════ */
+    /* ═══════════════════ HERO ═══════════════════ */
     #hero {
       min-height: 100vh;
-      background-color: var(--navy);
+      background-color: var(--bg);
       background-image: url('hero.png');
       background-size: cover;
-      background-position: center;
+      background-position: center right;
       display: flex; align-items: center;
-      padding: 128px 0 88px; position: relative; overflow: hidden;
+      padding: 148px 0 100px;
+      position: relative;
     }
     #hero::before {
       content: ''; position: absolute; inset: 0;
-      background: rgba(3, 22, 44, 0.78);
-      z-index: 0;
+      background: linear-gradient(
+        to right,
+        rgba(8,8,8,0.97) 0%,
+        rgba(8,8,8,0.86) 40%,
+        rgba(8,8,8,0.52) 68%,
+        rgba(8,8,8,0.22) 100%
+      );
     }
     #hero .container { position: relative; z-index: 1; }
+    .hero-content { max-width: 580px; }
     .hero-eyebrow {
-      font-size: 11px; font-weight: 500; letter-spacing: .14em;
-      text-transform: uppercase; color: var(--sky); margin-bottom: 22px;
+      font-family: 'Inter', sans-serif; font-weight: 400;
+      font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--gold); display: block; margin-bottom: 18px;
     }
+    .hero-rule { width: 52px; height: 1px; background: var(--gold); opacity: 0.5; margin-bottom: 28px; }
     .hero-headline {
-      font-size: clamp(44px,6.5vw,76px); font-weight: 700; color: #fff;
-      line-height: 1.08; margin-bottom: 22px; letter-spacing: -.025em;
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(54px, 7.5vw, 84px);
+      color: var(--text); line-height: 1.04;
+      letter-spacing: -0.02em; margin-bottom: 26px;
     }
     .hero-subline {
-      font-size: clamp(15px,1.8vw,18px); color: rgba(255,255,255,.58);
-      max-width: 500px; line-height: 1.75; margin-bottom: 40px;
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 15px; color: var(--text2);
+      max-width: 460px; line-height: 1.85; margin-bottom: 44px;
     }
-    .hero-ctas { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 52px; }
-    .btn-gold {
-      background: var(--gold); color: var(--navy); font-weight: 600;
-      font-size: 15px; padding: 14px 28px; border-radius: 6px;
-      text-decoration: none; border: none; cursor: pointer;
-      display: inline-block; transition: background .2s, transform .2s;
+    .hero-ctas { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 56px; align-items: center; }
+    .btn-border {
+      border: 1px solid rgba(201,168,76,0.6);
+      color: var(--gold); background: transparent;
+      font-family: 'Inter', sans-serif; font-weight: 400;
+      font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase;
+      padding: 13px 28px; text-decoration: none; display: inline-block;
+      transition: background 0.25s, color 0.25s;
     }
-    .btn-gold:hover { background: #f5ab3a; transform: translateY(-2px); }
-    .btn-ghost {
-      border: 1.5px solid rgba(255,255,255,.32); color: rgba(255,255,255,.82);
-      font-size: 15px; font-weight: 500; padding: 14px 28px; border-radius: 6px;
-      text-decoration: none; display: inline-block; transition: border-color .2s, color .2s;
+    .btn-border:hover { background: var(--gold); color: var(--bg); }
+    .btn-txt {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 13px; color: var(--text2); text-decoration: none; transition: color 0.2s;
     }
-    .btn-ghost:hover { border-color: rgba(255,255,255,.65); color: #fff; }
-    .hero-stats { display: grid; grid-template-columns: repeat(2,1fr); gap: 12px; margin-bottom: 20px; }
-    .stat-pill {
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.11);
-      border-radius: 8px; padding: 16px 18px;
+    .btn-txt:hover { color: var(--text); }
+    .hero-stats {
+      display: grid; grid-template-columns: repeat(4,1fr);
+      border-top: 1px solid var(--div); padding-top: 32px; margin-bottom: 22px;
     }
-    .stat-pill .sv {
-      font-size: 22px; font-weight: 700; color: var(--gold);
-      display: block; line-height: 1; margin-bottom: 6px;
+    .hs { padding: 0 20px; }
+    .hs:first-child { padding-left: 0; }
+    .hs:last-child { padding-right: 0; }
+    .hs:not(:last-child) { border-right: 1px solid var(--div); }
+    .hs-val {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 21px; color: var(--gold); display: block;
+      line-height: 1.2; margin-bottom: 6px;
     }
-    .stat-pill .sl {
-      font-size: 10.5px; color: rgba(255,255,255,.46);
-      letter-spacing: .08em; text-transform: uppercase;
+    .hs-lbl {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 10.5px; color: var(--text2); opacity: 0.7; line-height: 1.4;
     }
     .hero-fine {
-      font-size: 10px; color: rgba(255,255,255,.3);
-      max-width: 440px; line-height: 1.6;
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 10px; color: var(--text3); font-style: italic;
+      max-width: 480px; line-height: 1.65;
     }
-    .hero-inner {
-      display: grid; grid-template-columns: 55fr 45fr;
-      gap: 56px; align-items: center; width: 100%;
-    }
-    .hero-visual { display: flex; align-items: center; justify-content: flex-end; }
-    .hero-visual img {
-      width: 100%; max-width: 420px; display: block;
-      filter: brightness(0) invert(1);
-      opacity: 0.22;
-    }
-    @media(max-width:960px) {
-      .hero-inner { grid-template-columns: 1fr; gap: 44px; }
-      .hero-visual { justify-content: center; }
-      .hero-visual img { max-width: 100%; }
-    }
-    @media(max-width:400px) {
-      .hero-stats { grid-template-columns: 1fr; }
+    @media(max-width:640px) {
+      .hero-stats { grid-template-columns: repeat(2,1fr); gap: 20px 0; }
+      .hs:not(:last-child) { border-right: none; }
+      .hs:nth-child(1), .hs:nth-child(2) { padding-bottom: 20px; border-bottom: 1px solid var(--div); }
+      .hs:nth-child(odd) { padding-left: 0; }
     }
 
-    /* ═══════════════════════════
-       WHAT WE DO
-    ═══════════════════════════ */
-    #what { padding: 100px 0; background: #fff; }
-    .section-head { margin-bottom: 52px; }
-    .cards3 {
+    /* ═══════════════════ WHAT WE DO ═══════════════════ */
+    #what { padding: 120px 0; background: var(--bg2); }
+    .cards-row {
       display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 22px; margin-bottom: 22px;
+      gap: 1px; background: var(--div); margin-bottom: 1px;
     }
-    .card-nv {
-      background: var(--navy); border-radius: 12px; padding: 32px 26px;
-      transition: transform .25s, box-shadow .25s;
+    .card-d {
+      background: var(--bg3); padding: 36px 30px;
+      border-top: 2px solid var(--gold);
+      transition: background 0.25s, border-top-color 0.25s;
     }
-    .card-nv:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(4,44,83,.26); }
-    .card-nv .ci { margin-bottom: 18px; color: var(--sky); display: block; line-height: 0; }
-    .card-nv h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 10px; }
-    .card-nv p { font-size: 14px; color: rgba(255,255,255,.62); line-height: 1.68; }
-    .card-gd {
-      background: #fffbf2; border: 1.5px solid rgba(239,159,39,.28);
-      border-radius: 12px; padding: 32px 26px; position: relative; overflow: hidden;
-      transition: transform .25s, box-shadow .25s;
+    .card-d:hover { background: #141410; }
+    .card-d .ci { color: var(--gold); margin-bottom: 22px; display: block; line-height: 0; }
+    .card-d h3 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 22px; color: var(--text); margin-bottom: 12px;
     }
-    .card-gd:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(239,159,39,.13); }
-    .card-gd .badge {
-      position: absolute; top: 14px; right: 14px; background: var(--gold);
-      color: var(--navy); font-size: 9px; font-weight: 700; letter-spacing: .1em;
-      text-transform: uppercase; padding: 3px 8px; border-radius: 4px;
+    .card-d p {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 14px; color: var(--text2); line-height: 1.8;
     }
-    .card-gd .ci { margin-bottom: 18px; color: var(--ocean); display: block; line-height: 0; }
-    .card-gd h3 { font-size: 17px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
-    .card-gd p { font-size: 13px; color: #7a6840; }
-    @media(max-width:900px) { .cards3 { grid-template-columns: 1fr 1fr; } }
-    @media(max-width:580px) { .cards3 { grid-template-columns: 1fr; } }
+    .card-dim {
+      opacity: 0.5;
+      border-top: 1px dashed rgba(201,168,76,0.3) !important;
+    }
+    .card-dim:hover { opacity: 0.75; }
+    .badge-cs {
+      display: inline-block; border: 1px solid rgba(201,168,76,0.35);
+      color: var(--gold); font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 3px 10px; margin-bottom: 18px;
+    }
+    @media(max-width:860px) { .cards-row { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:520px) { .cards-row { grid-template-columns: 1fr; } }
 
-    /* ═══════════════════════════
-       HOW IT WORKS
-    ═══════════════════════════ */
-    #how { padding: 100px 0; background: var(--ice); }
-    .steps {
-      display: grid; grid-template-columns: repeat(4,1fr);
-      gap: 0; position: relative; margin-top: 52px;
+    /* ═══════════════════ HOW IT WORKS ═══════════════════ */
+    #how { padding: 120px 0; background: var(--bg); }
+    .timeline {
+      position: relative; margin-top: 72px;
+      display: flex; flex-direction: column; gap: 0;
     }
-    .steps::before {
-      content: ''; position: absolute; top: 27px; left: 8%; right: 8%;
-      height: 1.5px;
-      background: linear-gradient(to right, var(--ocean), var(--sky));
-      opacity: .25;
+    .timeline::before {
+      content: ''; position: absolute;
+      left: 9px; top: 14px; bottom: 30px;
+      width: 1px;
+      background: linear-gradient(to bottom, var(--gold) 0%, rgba(201,168,76,0.04) 100%);
     }
-    .step { padding: 0 18px; text-align: center; }
-    .step-n {
-      width: 54px; height: 54px; background: var(--navy); color: var(--gold);
-      font-weight: 700; font-size: 18px; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      margin: 0 auto 22px; position: relative; z-index: 1;
+    .tl-step {
+      display: flex; gap: 44px;
+      padding-bottom: 60px; position: relative;
     }
-    .step h3 { font-size: 15px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
-    .step p { font-size: 13.5px; color: #4a6b8a; line-height: 1.68; }
-    @media(max-width:768px) {
-      .steps { grid-template-columns: 1fr; gap: 36px; }
-      .steps::before { display: none; }
-      .step { text-align: left; display: flex; gap: 18px; align-items: flex-start; padding: 0; }
-      .step-n { margin: 0; flex-shrink: 0; }
-      .step-body { flex: 1; }
+    .tl-step:last-child { padding-bottom: 0; }
+    .tl-left {
+      width: 20px; flex-shrink: 0;
+      display: flex; flex-direction: column; align-items: center;
+      padding-top: 8px;
+    }
+    .tl-dot {
+      width: 10px; height: 10px;
+      background: var(--bg); border: 1px solid var(--gold);
+      border-radius: 50%; flex-shrink: 0; position: relative; z-index: 1;
+      box-shadow: 0 0 8px rgba(201,168,76,0.25);
+      transition: background 0.2s;
+    }
+    .tl-step:hover .tl-dot { background: var(--gold); }
+    .tl-body { flex: 1; }
+    .tl-num {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: 11px; letter-spacing: 0.2em; color: var(--gold);
+      opacity: 0.5; margin-bottom: 8px; display: block;
+    }
+    .tl-body h3 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 26px; color: var(--text); margin-bottom: 10px; line-height: 1.2;
+    }
+    .tl-body p {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 14px; color: var(--text2); line-height: 1.8; max-width: 580px;
+    }
+    @media(max-width:600px) {
+      .timeline::before { left: 7px; }
+      .tl-step { gap: 28px; }
     }
 
-    /* ═══════════════════════════
-       TRUST SIGNALS
-    ═══════════════════════════ */
-    #trust { padding: 100px 0; background: #fff; }
+    /* ═══════════════════ TRUST SIGNALS ═══════════════════ */
+    #trust { padding: 120px 0; background: var(--bg2); }
     .trust-grid {
       display: grid; grid-template-columns: repeat(2,1fr);
-      gap: 22px; margin-top: 52px;
+      gap: 1px; background: var(--div); margin-top: 60px;
     }
     .tc {
-      border: 1px solid #e4eaf2; border-left: 4px solid var(--navy);
-      border-radius: 0 10px 10px 0; padding: 26px 26px 26px 22px;
-      transition: transform .2s, box-shadow .2s;
+      background: var(--bg3); padding: 36px 30px;
+      border-left: 2px solid var(--gold);
+      transition: background 0.25s;
     }
-    .tc:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(4,44,83,.08); }
+    .tc:hover { background: #141410; }
     .tc-icon {
-      width: 30px; height: 30px; background: var(--ice);
-      border-radius: 50%; display: flex; align-items: center;
-      justify-content: center; margin-bottom: 14px;
-      color: var(--navy);
+      width: 30px; height: 30px;
+      border: 1px solid rgba(201,168,76,0.3); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--gold); margin-bottom: 18px;
     }
-    .tc h3 { font-size: 15.5px; font-weight: 600; color: var(--navy); margin-bottom: 9px; }
-    .tc p { font-size: 13.5px; color: #4a6b8a; line-height: 1.68; }
-    @media(max-width:640px) { .trust-grid { grid-template-columns: 1fr; } }
+    .tc h3 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 21px; color: var(--text); margin-bottom: 10px;
+    }
+    .tc p {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 14px; color: var(--text2); line-height: 1.8;
+    }
+    @media(max-width:620px) { .trust-grid { grid-template-columns: 1fr; } }
 
-    /* ═══════════════════════════
-       WHO WE WORK WITH
-    ═══════════════════════════ */
-    #who { padding: 100px 0; background: var(--cloud); }
+    /* ═══════════════════ WHO WE WORK WITH ═══════════════════ */
+    #who { padding: 120px 0; background: var(--bg); }
     .audience-grid {
       display: grid; grid-template-columns: repeat(3,1fr);
-      gap: 22px; margin-top: 52px; margin-bottom: 60px;
+      gap: 1px; background: var(--div); margin: 60px 0 60px;
     }
     .ac {
-      background: var(--ice); border-left: 4px solid var(--navy);
-      border-radius: 0 10px 10px 0; padding: 26px 22px;
+      background: var(--bg3); padding: 32px 28px;
+      border-top: 1px solid rgba(201,168,76,0.25);
+      transition: background 0.25s;
     }
-    .ac h3 { font-size: 15.5px; font-weight: 600; color: var(--navy); margin-bottom: 10px; }
-    .ac p { font-size: 13.5px; color: #4a6b8a; line-height: 1.68; }
-    @media(max-width:900px) { .audience-grid { grid-template-columns: 1fr 1fr; } }
-    @media(max-width:580px) { .audience-grid { grid-template-columns: 1fr; } }
-    .tier-block h3 { font-size: 22px; font-weight: 600; color: var(--navy); margin-bottom: 6px; }
-    .tier-sub { font-size: 14px; color: #4a6b8a; margin-bottom: 22px; }
+    .ac:hover { background: #141410; }
+    .ac h3 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 21px; color: var(--text); margin-bottom: 12px;
+    }
+    .ac p {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 14px; color: var(--text2); line-height: 1.8;
+    }
+    @media(max-width:820px) { .audience-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:500px) { .audience-grid { grid-template-columns: 1fr; } }
+    .tier-block h3 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 28px; color: var(--text); margin-bottom: 6px;
+    }
+    .tier-sub {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 14px; color: var(--text2); margin-bottom: 24px;
+    }
     .table-wrap { overflow-x: auto; }
     .tier-tbl { width: 100%; border-collapse: collapse; font-size: 14px; }
     .tier-tbl th {
-      background: var(--navy); color: rgba(255,255,255,.82);
-      font-weight: 500; font-size: 11.5px; letter-spacing: .08em;
-      text-transform: uppercase; padding: 12px 20px; text-align: left;
+      background: var(--bg2); color: var(--gold);
+      font-family: 'Inter', sans-serif; font-weight: 400;
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      padding: 14px 22px; text-align: left;
+      border-bottom: 1px solid var(--div);
     }
-    .tier-tbl td { padding: 14px 20px; border-bottom: 1px solid #dce8f0; color: var(--navy); }
+    .tier-tbl td {
+      padding: 16px 22px;
+      border-bottom: 1px solid var(--div);
+      font-family: 'Inter', sans-serif; font-weight: 300; color: var(--text2);
+    }
     .tier-tbl tr:last-child td { border-bottom: none; }
-    .tier-tbl tr:nth-child(even) td { background: rgba(230,241,251,.5); }
-    .tier-tbl td:first-child { font-weight: 600; color: var(--ocean); }
-    .tier-note { font-size: 11.5px; color: #8a9aaa; margin-top: 10px; }
+    .tier-tbl tr:nth-child(even) td { background: rgba(10,10,10,0.6); }
+    .tier-tbl td:first-child {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 18px; color: var(--gold);
+    }
+    .tier-note {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 11px; color: var(--text3); margin-top: 12px; font-style: italic;
+    }
 
-    /* ═══════════════════════════
-       CALCULATOR
-    ═══════════════════════════ */
+    /* ═══════════════════ CALCULATOR ═══════════════════ */
     #calc {
-      padding: 100px 0; background: var(--navy);
-      background-image:
-        repeating-linear-gradient(45deg,transparent,transparent 80px,rgba(255,255,255,.011) 80px,rgba(255,255,255,.011) 81px),
-        repeating-linear-gradient(-45deg,transparent,transparent 80px,rgba(255,255,255,.011) 80px,rgba(255,255,255,.011) 81px);
+      padding: 120px 0; background: #050505;
+      background-image: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(201,168,76,0.05) 0%, transparent 70%);
     }
-    #calc .section-title { color: #fff; }
-    .calc-dis { font-size: 13px; color: rgba(255,255,255,.42); margin-top: 8px; max-width: 540px; line-height: 1.6; }
+    .calc-dis {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 12px; color: var(--text3); margin-top: 12px;
+      max-width: 560px; line-height: 1.7; font-style: italic;
+    }
     .calc-card {
-      background: #fff; border-radius: 16px; padding: 40px;
-      margin-top: 44px; max-width: 780px;
+      background: var(--bg3);
+      border: 0.5px solid rgba(201,168,76,0.14);
+      padding: 48px; margin-top: 52px; max-width: 800px;
     }
-    .calc-lbl { font-size: 13.5px; color: #4a6b8a; font-weight: 500; margin-bottom: 10px; }
-    .calc-amt { font-size: 30px; font-weight: 700; color: var(--navy); margin-bottom: 14px; }
+    .calc-lbl {
+      font-family: 'Inter', sans-serif; font-weight: 400;
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text2); margin-bottom: 10px; display: block;
+    }
+    .calc-amt {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: 48px; color: var(--text); margin-bottom: 24px; line-height: 1;
+    }
     input[type=range] {
-      width: 100%; height: 6px; -webkit-appearance: none; appearance: none;
-      background: linear-gradient(to right, var(--ocean), var(--sky));
-      border-radius: 3px; outline: none; cursor: pointer; margin-bottom: 6px;
+      -webkit-appearance: none; appearance: none; width: 100%; height: 1px;
+      background: linear-gradient(to right, var(--gold) var(--fill, 8.2%), var(--div) var(--fill, 8.2%));
+      outline: none; cursor: pointer; border-radius: 0; display: block;
     }
     input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none; width: 22px; height: 22px;
-      background: var(--navy); border: 3px solid var(--gold);
-      border-radius: 50%; cursor: pointer; transition: transform .15s;
+      -webkit-appearance: none; width: 18px; height: 18px;
+      background: var(--gold); border-radius: 50%; cursor: pointer;
+      border: 2px solid #050505;
     }
-    input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.15); }
-    .range-row { display: flex; justify-content: space-between; font-size: 11.5px; color: #9aabb8; margin-bottom: 34px; }
-    .calc-outs { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
-    .co {
-      background: var(--cloud); border-radius: 10px;
-      padding: 20px 16px; text-align: center;
+    input[type=range]::-moz-range-thumb {
+      width: 18px; height: 18px;
+      background: var(--gold); border-radius: 50%; cursor: pointer;
+      border: 2px solid #050505;
     }
-    .co .co-l { font-size: 10.5px; text-transform: uppercase; letter-spacing: .1em; color: #8a9aaa; margin-bottom: 8px; }
-    .co .co-v { font-size: 21px; font-weight: 700; color: var(--gold); }
-    .co .co-s { font-size: 10.5px; color: #aab8c4; margin-top: 4px; }
-    .calc-foot { font-size: 11px; color: #aab8c4; margin-top: 22px; text-align: center; font-style: italic; }
-    @media(max-width:580px) {
+    .range-row {
+      display: flex; justify-content: space-between;
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 10.5px; color: var(--text3);
+      margin-bottom: 38px; margin-top: 10px;
+    }
+    .calc-outs {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--div);
+    }
+    .co { background: #0a0a0a; padding: 24px 20px; text-align: center; }
+    .co-l {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--text2); margin-bottom: 10px;
+    }
+    .co-v {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 36px; color: var(--gold); line-height: 1; display: block;
+    }
+    .co-s {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 10.5px; color: var(--text3); margin-top: 6px;
+    }
+    .calc-foot {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 11px; color: var(--text3); margin-top: 24px;
+      text-align: center; font-style: italic;
+    }
+    @media(max-width:560px) {
       .calc-outs { grid-template-columns: 1fr; }
-      .calc-card { padding: 24px 20px; }
+      .calc-card { padding: 28px 20px; }
+      .calc-amt { font-size: 38px; }
     }
 
-    /* ═══════════════════════════
-       ALGO TRADING
-    ═══════════════════════════ */
-    #algo {
-      padding: 100px 0; background: var(--navy);
-      background-image:
-        repeating-linear-gradient(45deg,transparent,transparent 80px,rgba(255,255,255,.012) 80px,rgba(255,255,255,.012) 81px),
-        repeating-linear-gradient(-45deg,transparent,transparent 80px,rgba(255,255,255,.012) 80px,rgba(255,255,255,.012) 81px);
+    /* ═══════════════════ ALGO TRADING ═══════════════════ */
+    #algo { padding: 120px 0; background: var(--bg); }
+    .algo-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--div); margin-top: 60px;
     }
-    #algo .section-title { color: #fff; }
-    #algo .section-subtitle { color: rgba(255,255,255,.58); max-width: 620px; }
-    .algo-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-top: 52px; }
     .algo-card {
-      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
-      border-radius: 12px; padding: 30px 26px;
-      transition: background .25s, transform .25s;
+      background: var(--bg3); padding: 32px 28px;
+      border-top: 1px solid rgba(201,168,76,0.18);
+      transition: background 0.25s, border-top-color 0.25s;
     }
-    .algo-card:hover { background: rgba(255,255,255,.1); transform: translateY(-4px); }
-    .algo-card .ac-icon { margin-bottom: 18px; display: block; line-height: 0; color: var(--gold); }
-    .algo-card h3 { font-size: 16.5px; font-weight: 600; color: #fff; margin-bottom: 10px; }
-    .algo-card p { font-size: 13.5px; color: rgba(255,255,255,.58); line-height: 1.68; }
+    .algo-card:hover { background: #141410; border-top-color: var(--gold); }
+    .algo-card .ac-icon { color: var(--gold); margin-bottom: 16px; display: block; line-height: 0; }
     .algo-badge {
-      display: inline-block; background: rgba(239,159,39,.15);
-      border: 1px solid rgba(239,159,39,.3); color: var(--gold);
-      font-size: 10px; font-weight: 600; letter-spacing: .1em;
-      text-transform: uppercase; padding: 3px 10px; border-radius: 20px; margin-bottom: 12px;
+      display: inline-block; border: 1px solid rgba(201,168,76,0.28);
+      color: var(--gold); font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase;
+      padding: 3px 10px; margin-bottom: 14px;
     }
-    @media(max-width:900px) { .algo-grid { grid-template-columns: 1fr 1fr; } }
-    @media(max-width:580px) { .algo-grid { grid-template-columns: 1fr; } }
+    .algo-card h3 {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 20px; color: var(--text); margin-bottom: 10px;
+    }
+    .algo-card p {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 13.5px; color: var(--text2); line-height: 1.75;
+    }
+    @media(max-width:820px) { .algo-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:500px) { .algo-grid { grid-template-columns: 1fr; } }
 
-    /* ═══════════════════════════
-       ABOUT / FOUNDERS
-    ═══════════════════════════ */
-    #about { padding: 100px 0; background: #fff; }
-    .founders { margin-top: 52px; display: flex; flex-direction: column; gap: 24px; }
-    .founder-lead { display: block; }
-    .founder-lead .founder { width: 100%; }
-    .founder-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    @media(max-width:640px) { .founder-row { grid-template-columns: 1fr; } }
-    @media(max-width:640px) { .founder-lead .founder { max-width: 100%; } }
-    .founder {
-      border-top: 3px solid var(--navy); border-radius: 0 0 10px 10px;
-      padding: 32px; background: var(--cloud);
+    /* ═══════════════════ LEADERSHIP ═══════════════════ */
+    #about { padding: 120px 0; background: var(--bg2); }
+    .founders-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; background: var(--div); margin-top: 60px;
     }
+    .founder {
+      background: var(--bg3); padding: 38px 30px;
+      border-top: 2px solid var(--gold);
+      transition: background 0.25s;
+    }
+    .founder:hover { background: #141410; }
     .f-av {
-      width: 72px; height: 72px; background: var(--ice); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 26px; font-weight: 700; color: var(--navy); margin-bottom: 18px;
-      overflow: hidden; flex-shrink: 0;
+      width: 66px; height: 66px;
+      background: #181510; border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 50%; display: flex; align-items: center;
+      justify-content: center; margin-bottom: 22px; overflow: hidden;
+    }
+    .f-av span {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 22px; color: var(--gold);
     }
     .f-av img { width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: 50%; }
-    .f-name { font-size: 22px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
-    .f-title { font-size: 12.5px; font-weight: 600; color: var(--ocean); letter-spacing: .04em; margin-bottom: 4px; }
-    .f-role { font-size: 12px; color: #8a9aaa; margin-bottom: 16px; font-style: italic; }
+    .f-name {
+      font-family: 'Cormorant Garamond', serif; font-weight: 400;
+      font-size: 26px; color: var(--text); margin-bottom: 4px;
+    }
+    .f-title {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--gold); margin-bottom: 4px;
+    }
+    .f-role {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 12px; color: var(--text2); margin-bottom: 22px;
+    }
     .f-quote {
-      font-size: 14px; color: #4a6b8a; line-height: 1.72;
-      border-left: 3px solid var(--gold); padding-left: 14px;
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 13.5px; color: var(--text2); line-height: 1.78;
+      font-style: italic; border-left: 2px solid rgba(201,168,76,0.4);
+      padding-left: 16px;
     }
-    @media(max-width:640px) { .founders { grid-template-columns: 1fr; } }
+    @media(max-width:820px) { .founders-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:500px) { .founders-grid { grid-template-columns: 1fr; } }
 
-    /* ═══════════════════════════
-       CONTACT
-    ═══════════════════════════ */
-    #contact { padding: 100px 0 0; background: var(--navy); }
-    #contact .section-title { color: #fff; }
-    #contact .section-subtitle { color: rgba(255,255,255,.58); }
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 52px; }
-    .cform { display: flex; flex-direction: column; gap: 16px; }
-    .ff { display: flex; flex-direction: column; gap: 6px; }
-    .ff label { font-size: 11.5px; font-weight: 500; color: rgba(255,255,255,.52); letter-spacing: .07em; text-transform: uppercase; }
+    /* ═══════════════════ CONTACT ═══════════════════ */
+    #contact { padding: 120px 0 0; background: var(--bg); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; margin-top: 60px;
+    }
+    .cform { display: flex; flex-direction: column; gap: 30px; }
+    .ff { display: flex; flex-direction: column; gap: 8px; }
+    .ff label {
+      font-family: 'Inter', sans-serif; font-weight: 400;
+      font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text2);
+    }
     .ff input, .ff textarea {
-      background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.14);
-      border-radius: 8px; padding: 12px 16px; color: #fff;
-      font-family: 'Inter', sans-serif; font-size: 15px; outline: none;
-      transition: border-color .2s;
+      background: transparent; border: none;
+      border-bottom: 1px solid var(--gold-s);
+      padding: 10px 0; color: var(--text);
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 15px; outline: none;
+      transition: border-color 0.25s; border-radius: 0; -webkit-appearance: none;
     }
-    .ff input:focus, .ff textarea:focus { border-color: var(--sky); }
-    .ff textarea { resize: vertical; min-height: 96px; }
-    .ff input::placeholder, .ff textarea::placeholder { color: rgba(255,255,255,.28); }
-    .cdetails { display: flex; flex-direction: column; gap: 28px; padding-top: 8px; }
-    .cd { display: flex; gap: 14px; align-items: flex-start; }
+    .ff input:focus, .ff textarea:focus { border-bottom-color: var(--gold); }
+    .ff textarea { resize: none; min-height: 80px; }
+    .ff input::placeholder, .ff textarea::placeholder { color: var(--text3); }
+    .btn-gold-full {
+      background: var(--gold); color: var(--bg);
+      font-family: 'Inter', sans-serif; font-weight: 400;
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 16px 32px; border: none; cursor: pointer;
+      border-radius: 0; transition: background 0.2s; width: 100%; text-align: center;
+    }
+    .btn-gold-full:hover { background: #b89036; }
+    .cdetails { display: flex; flex-direction: column; gap: 34px; padding-top: 4px; }
+    .cd { display: flex; gap: 18px; align-items: flex-start; }
     .cd-icon {
-      width: 42px; height: 42px; background: rgba(255,255,255,.07);
-      border-radius: 10px; display: flex; align-items: center;
-      justify-content: center; font-size: 18px; flex-shrink: 0;
+      width: 40px; height: 40px;
+      border: 1px solid rgba(201,168,76,0.22);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; color: var(--gold);
     }
-    .cd-txt label { font-size: 10.5px; color: rgba(255,255,255,.4); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; display: block; }
-    .cd-txt a, .cd-txt p { color: rgba(255,255,255,.82); font-size: 15px; text-decoration: none; }
+    .cd-txt label {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text2); margin-bottom: 5px; display: block;
+    }
+    .cd-txt a, .cd-txt p {
+      color: var(--text); font-family: 'Inter', sans-serif;
+      font-weight: 300; font-size: 15px; text-decoration: none;
+    }
     .cd-txt a:hover { color: var(--gold); }
-    @media(max-width:768px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+    @media(max-width:768px) { .contact-grid { grid-template-columns: 1fr; gap: 48px; } }
 
-    /* ═══════════════════════════
-       FOOTER
-    ═══════════════════════════ */
-    footer { background: #021d38; padding: 52px 0 32px; margin-top: 80px; }
+    /* ═══════════════════ FOOTER ═══════════════════ */
+    footer {
+      background: #050505; padding: 52px 0 32px;
+      margin-top: 80px; border-top: 1px solid rgba(201,168,76,0.1);
+    }
     .footer-top {
       display: flex; justify-content: space-between; align-items: flex-start;
       margin-bottom: 36px; flex-wrap: wrap; gap: 28px;
     }
-    .fl-brand { font-size: 18px; font-weight: 500; color: #fff; display: block; }
-    .fl-sub { font-size: 10.5px; color: rgba(255,255,255,.38); }
-    .fl-tag { font-size: 13px; color: rgba(255,255,255,.38); margin-top: 8px; }
-    .footer-logo-img { height: 52px; border-radius: 8px; display: block; margin-bottom: 10px; }
-    .footer-nav { display: flex; flex-wrap: wrap; gap: 22px; list-style: none; align-items: center; }
-    .footer-nav a { font-size: 13.5px; color: rgba(255,255,255,.55); text-decoration: none; transition: color .2s; }
-    .footer-nav a:hover { color: #fff; }
-    .fdiv { border: none; border-top: 1px solid rgba(255,255,255,.07); margin: 0 0 26px; }
-    .fdis { font-size: 11px; color: rgba(255,255,255,.28); line-height: 1.75; margin-bottom: 14px; max-width: 820px; }
-    .fcopy { font-size: 11.5px; color: rgba(255,255,255,.3); }
-
-    /* ═══════════════════════════
-       FLOATING WHATSAPP
-    ═══════════════════════════ */
-    .wa-btn {
-      position: fixed; bottom: 26px; right: 26px; z-index: 990;
-      width: 56px; height: 56px; background: var(--gold); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 20px rgba(239,159,39,.45); text-decoration: none;
-      transition: transform .2s, box-shadow .2s;
+    .footer-brand { display: flex; flex-direction: column; }
+    .footer-logo-img { height: 42px; display: block; margin-bottom: 10px; }
+    .fb-tag { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 12px; color: var(--text3); }
+    .footer-nav { display: flex; flex-wrap: wrap; gap: 24px; list-style: none; align-items: center; }
+    .footer-nav a {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--text3); text-decoration: none; transition: color 0.2s;
     }
-    .wa-btn:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(239,159,39,.55); }
-    .wa-btn svg { width: 28px; height: 28px; }
+    .footer-nav a:hover { color: var(--gold); }
+    .fdiv { border: none; border-top: 1px solid var(--div); margin: 0 0 26px; }
+    .fdis {
+      font-family: 'Inter', sans-serif; font-weight: 300;
+      font-size: 10.5px; color: var(--text3); line-height: 1.75;
+      margin-bottom: 16px; max-width: 820px; font-style: italic;
+    }
+    .fcopy { font-family: 'Inter', sans-serif; font-weight: 300; font-size: 11px; color: var(--text3); }
+
+    /* ═══════════════════ WA BUTTON ═══════════════════ */
+    .wa-btn {
+      position: fixed; bottom: 28px; right: 28px; z-index: 990;
+      width: 52px; height: 52px; background: var(--gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; box-shadow: 0 4px 18px rgba(201,168,76,0.32);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .wa-btn:hover { transform: scale(1.08); box-shadow: 0 6px 26px rgba(201,168,76,0.5); }
+    .wa-btn svg { width: 26px; height: 26px; }
+
+    /* ═══════════════════ MOBILE PADDING ═══════════════════ */
+    @media(max-width:768px) {
+      #what, #how, #trust, #who, #calc, #algo, #about { padding: 80px 0; }
+      #contact { padding: 80px 0 0; }
+      .container { padding: 0 20px; }
+    }
+    @media(max-width:480px) {
+      #what, #how, #trust, #who, #calc, #algo, #about { padding: 60px 0; }
+    }
   </style>
 </head>
 <body>
@@ -472,7 +652,7 @@
         <li><a href="#how">How It Works</a></li>
         <li><a href="#who">Who We Work With</a></li>
         <li><a href="#contact">Contact</a></li>
-        <li><a href="#contact" class="nav-cta">Start a conversation →</a></li>
+        <li><a href="#contact" class="nav-cta">Start a conversation</a></li>
       </ul>
     </div>
   </div>
@@ -481,85 +661,83 @@
 <!-- ── HERO ── -->
 <section id="hero">
   <div class="container">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <p class="hero-eyebrow fi">Proprietary Trading · Forex · Commodities · Crypto</p>
-        <h1 class="hero-headline fi">Where capital<br>finds direction.</h1>
-        <p class="hero-subline fi">We don't sell returns. We share them.<br>
-          A founder-led trading desk that selectively partners with<br>
-          individuals who want their capital working, not sitting idle.</p>
-        <div class="hero-ctas fi">
-          <a href="#contact" class="btn-gold">Talk to us →</a>
-          <a href="#how" class="btn-ghost">See how it works ↓</a>
-        </div>
-        <div class="hero-stats fi">
-          <div class="stat-pill">
-            <span class="sv">25–35%</span>
-            <span class="sl">historical annual performance</span>
-          </div>
-          <div class="stat-pill">
-            <span class="sv">Quarterly</span>
-            <span class="sl">profit distributions</span>
-          </div>
-          <div class="stat-pill">
-            <span class="sv" id="stat-markets">3 markets</span>
-            <span class="sl">forex · commodities · crypto</span>
-          </div>
-          <div class="stat-pill">
-            <span class="sv">Invitation only</span>
-            <span class="sl">referral-gated entry</span>
-          </div>
-        </div>
-        <p class="hero-fine fi">Performance figures are historical and market-linked. No fixed or guaranteed returns.</p>
+    <div class="hero-content">
+      <span class="hero-eyebrow fi">Proprietary Trading · Forex · Commodities · Crypto</span>
+      <div class="hero-rule fi"></div>
+      <h1 class="hero-headline fi">Where capital<br>finds direction.</h1>
+      <p class="hero-subline fi">We don't sell returns. We share them.<br>
+        A founder-led trading desk that selectively partners with<br>
+        individuals who want their capital working, not sitting idle.</p>
+      <div class="hero-ctas fi">
+        <a href="#contact" class="btn-border">Talk to us →</a>
+        <a href="#how" class="btn-txt">See how it works ↓</a>
       </div>
-      <div class="hero-visual fi">
-        <img src="heroimg.png" alt="Wealthon Capital Ventures">
+      <div class="hero-stats fi">
+        <div class="hs">
+          <span class="hs-val">25–35%</span>
+          <span class="hs-lbl">historical annual<br>performance</span>
+        </div>
+        <div class="hs">
+          <span class="hs-val">Quarterly</span>
+          <span class="hs-lbl">profit<br>distributions</span>
+        </div>
+        <div class="hs">
+          <span class="hs-val" id="stat-markets">3 markets</span>
+          <span class="hs-lbl">forex · commodities<br>· crypto</span>
+        </div>
+        <div class="hs">
+          <span class="hs-val">Invitation only</span>
+          <span class="hs-lbl">referral-gated<br>entry</span>
+        </div>
       </div>
+      <p class="hero-fine fi">Performance figures are historical and market-linked. No fixed or guaranteed returns.</p>
     </div>
   </div>
 </section>
 
+<div class="s-div"></div>
+
 <!-- ── WHAT WE DO ── -->
 <section id="what">
   <div class="container">
-    <div class="section-head">
-      <span class="section-tag">Our work</span>
-      <h2 class="section-title fi">What we do.</h2>
-      <p class="section-subtitle fi">We operate as a proprietary trading desk. Capital partners share in our performance, not in promises.</p>
+    <div class="s-head">
+      <span class="eyebrow fi">Our work</span>
+      <h2 class="s-title fi">What we do.</h2>
+      <p class="s-sub fi">We operate as a proprietary trading desk. Capital partners share in our performance, not in promises.</p>
     </div>
-    <div class="cards3">
-      <div class="card-nv fi">
-        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div>
+    <div class="cards-row">
+      <div class="card-d fi">
+        <span class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></span>
         <h3>Active Trading</h3>
         <p>We trade across Forex, Commodities and Crypto markets daily on internationally regulated platforms and infrastructure.</p>
       </div>
-      <div class="card-nv fi">
-        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></div>
+      <div class="card-d fi">
+        <span class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span>
         <h3>Portfolio Management</h3>
         <p>Each capital partner's allocation is managed individually, tailored to their entry level, timeline and risk appetite.</p>
       </div>
-      <div class="card-nv fi">
-        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <div class="card-d fi">
+        <span class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
         <h3>Capital Partnerships</h3>
         <p>Selected individuals partner with the firm under a formal profit-sharing MoU. Referral and relationship-gated. No cold onboarding.</p>
       </div>
     </div>
-    <div class="cards3">
-      <div class="card-gd fi">
-        <span class="badge">Coming Soon</span>
-        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></div>
+    <div class="cards-row" style="margin-top:1px">
+      <div class="card-d card-dim fi">
+        <span class="badge-cs">Coming Soon</span>
+        <span class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/></svg></span>
         <h3>Financial Consulting</h3>
         <p>Strategic money guidance</p>
       </div>
-      <div class="card-gd fi">
-        <span class="badge">Coming Soon</span>
-        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      <div class="card-d card-dim fi">
+        <span class="badge-cs">Coming Soon</span>
+        <span class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
         <h3>Financial Advisory</h3>
         <p>Planning beyond trading</p>
       </div>
-      <div class="card-gd fi">
-        <span class="badge">Coming Soon</span>
-        <div class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <div class="card-d card-dim fi">
+        <span class="badge-cs">Coming Soon</span>
+        <span class="ci"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>
         <h3>Real Estate</h3>
         <p>Property as an asset class</p>
       </div>
@@ -567,36 +745,42 @@
   </div>
 </section>
 
+<div class="s-div"></div>
+
 <!-- ── HOW IT WORKS ── -->
 <section id="how">
   <div class="container">
-    <span class="section-tag">Process</span>
-    <h2 class="section-title fi">Simple, structured, transparent.</h2>
-    <div class="steps fi">
-      <div class="step">
-        <div class="step-n">1</div>
-        <div class="step-body">
+    <span class="eyebrow fi">Process</span>
+    <h2 class="s-title fi">Simple, structured, transparent.</h2>
+    <div class="timeline">
+      <div class="tl-step fi">
+        <div class="tl-left"><div class="tl-dot"></div></div>
+        <div class="tl-body">
+          <span class="tl-num">01</span>
           <h3>You're introduced</h3>
           <p>Every capital partner joins through a referral or direct relationship. No cold calls, no ads.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-n">2</div>
-        <div class="step-body">
+      <div class="tl-step fi">
+        <div class="tl-left"><div class="tl-dot"></div></div>
+        <div class="tl-body">
+          <span class="tl-num">02</span>
           <h3>We meet and discuss</h3>
           <p>We walk through how the firm operates, our trading approach, profit-sharing terms, and what the agreement covers. No pressure.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-n">3</div>
-        <div class="step-body">
+      <div class="tl-step fi">
+        <div class="tl-left"><div class="tl-dot"></div></div>
+        <div class="tl-body">
+          <span class="tl-num">03</span>
           <h3>Agreements are signed</h3>
           <p>A Capital Partnership MoU is signed before any capital moves. Risk disclosure is explicit. No guaranteed returns. Ever. Documented.</p>
         </div>
       </div>
-      <div class="step">
-        <div class="step-n">4</div>
-        <div class="step-body">
+      <div class="tl-step fi">
+        <div class="tl-left"><div class="tl-dot"></div></div>
+        <div class="tl-body">
+          <span class="tl-num">04</span>
           <h3>Profits are shared quarterly</h3>
           <p>Each quarter, trading P&amp;L is documented and profit distributions are made per the agreed ratio. Transparent. Written. Consistent.</p>
         </div>
@@ -605,30 +789,32 @@
   </div>
 </section>
 
+<div class="s-div"></div>
+
 <!-- ── TRUST SIGNALS ── -->
 <section id="trust">
   <div class="container">
-    <span class="section-tag">Why trust us</span>
-    <h2 class="section-title fi">Built on paper, not promises.</h2>
-    <p class="section-subtitle fi">Every capital partner is protected by formal agreements before a single rupee moves.</p>
+    <span class="eyebrow fi">Why trust us</span>
+    <h2 class="s-title fi">Built on paper, not promises.</h2>
+    <p class="s-sub fi">Every capital partner is protected by formal agreements before a single rupee moves.</p>
     <div class="trust-grid">
       <div class="tc fi">
-        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h3>Formal Agreement First</h3>
         <p>We sit down, discuss every term, and sign a Capital Partnership MoU before anything begins. You know exactly what you're entering.</p>
       </div>
       <div class="tc fi">
-        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h3>Explicit Risk Disclosure</h3>
         <p>A separate Risk Disclosure Statement is signed by every partner. No fixed returns are ever promised. This is documented, not just said.</p>
       </div>
       <div class="tc fi">
-        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h3>Clean Capital Structure</h3>
         <p>All partner capital is held in a dedicated firm current account, never mixed with personal funds. Clean paper trail. Full separation.</p>
       </div>
       <div class="tc fi">
-        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="tc-icon"><svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
         <h3>Quarterly P&amp;L Reporting</h3>
         <p>Every quarter, we share documented trading performance. You see the numbers, not just the distribution. Transparency is non-negotiable.</p>
       </div>
@@ -636,12 +822,14 @@
   </div>
 </section>
 
+<div class="s-div"></div>
+
 <!-- ── WHO WE WORK WITH ── -->
 <section id="who">
   <div class="container">
-    <span class="section-tag">Our partners</span>
-    <h2 class="section-title fi">Who we work with.</h2>
-    <p class="section-subtitle fi">We work with people, not portfolios.</p>
+    <span class="eyebrow fi">Our partners</span>
+    <h2 class="s-title fi">Who we work with.</h2>
+    <p class="s-sub fi">We work with people, not portfolios.</p>
     <div class="audience-grid">
       <div class="ac fi">
         <h3>The working professional</h3>
@@ -676,31 +864,33 @@
   </div>
 </section>
 
+<div class="s-div"></div>
+
 <!-- ── CALCULATOR ── -->
 <section id="calc">
   <div class="container">
-    <span class="section-tag" style="color:rgba(55,138,221,.75)">Returns illustration</span>
-    <h2 class="section-title">See what performance-linked<br>profit sharing could look like.</h2>
+    <span class="eyebrow" style="color:rgba(201,168,76,.6)">Returns illustration</span>
+    <h2 class="s-title">See what performance-linked<br>profit sharing could look like.</h2>
     <p class="calc-dis">Illustrative only. Based on historical performance of 25–35% annually. Not a guarantee of future returns.</p>
     <div class="calc-card">
-      <p class="calc-lbl">Capital amount</p>
+      <span class="calc-lbl">Capital amount</span>
       <div class="calc-amt" id="c-amt">₹5,00,000</div>
       <input type="range" id="c-slider" min="100000" max="5000000" step="50000" value="500000" oninput="runCalc()" onchange="runCalc()">
       <div class="range-row"><span>₹1,00,000</span><span>₹50,00,000</span></div>
       <div class="calc-outs">
         <div class="co">
           <div class="co-l">Est. annual return</div>
-          <div class="co-v" id="c-ann">₹1,50,000</div>
+          <span class="co-v" id="c-ann">₹1,50,000</span>
           <div class="co-s">at 30% midpoint</div>
         </div>
         <div class="co">
           <div class="co-l">Quarterly distribution</div>
-          <div class="co-v" id="c-qtr">₹37,500</div>
+          <span class="co-v" id="c-qtr">₹37,500</span>
           <div class="co-s">every 3 months</div>
         </div>
         <div class="co">
           <div class="co-l">3-year compounded</div>
-          <div class="co-v" id="c-3yr">₹10,98,500</div>
+          <span class="co-v" id="c-3yr">₹10,98,500</span>
           <div class="co-s">estimated value</div>
         </div>
       </div>
@@ -709,45 +899,47 @@
   </div>
 </section>
 
+<div class="s-div"></div>
+
 <!-- ── ALGO TRADING ── -->
 <section id="algo">
   <div class="container">
-    <span class="section-tag" style="color:rgba(55,138,221,.75)">The edge</span>
-    <h2 class="section-title fi">Built on algorithms. Backed by data.</h2>
-    <p class="section-subtitle fi">Our trading approach is systematic and research-driven. We apply quantitative models and algorithmic strategies across every market we operate in, removing emotion from execution.</p>
+    <span class="eyebrow fi">The edge</span>
+    <h2 class="s-title fi">Built on algorithms. Backed by data.</h2>
+    <p class="s-sub fi">Our trading approach is systematic and research-driven. We apply quantitative models and algorithmic strategies across every market we operate in, removing emotion from execution.</p>
     <div class="algo-grid">
       <div class="algo-card fi">
-        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg></span>
         <span class="algo-badge">Core methodology</span>
         <h3>Algorithmic Execution</h3>
         <p>Trades are executed through rule-based systems built on statistical models. Speed, precision and consistency — without manual bias interfering at the moment of execution.</p>
       </div>
       <div class="algo-card fi">
-        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span>
         <span class="algo-badge">Research</span>
         <h3>Quantitative Finance</h3>
         <p>We use mathematical frameworks to model market behaviour, price risk and identify statistical edges. Every strategy is back-tested before it touches live capital.</p>
       </div>
       <div class="algo-card fi">
-        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
         <span class="algo-badge">Risk</span>
         <h3>Systematic Risk Management</h3>
         <p>Position sizing, drawdown limits and volatility controls are built into the system. Risk parameters are defined before a trade opens, not after it moves against us.</p>
       </div>
       <div class="algo-card fi">
-        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></span>
         <span class="algo-badge">Multi-market</span>
         <h3>Cross-Market Strategies</h3>
         <p>Our models run across Forex, Commodities and Crypto simultaneously. Diversification is built at the strategy level, not just the asset level.</p>
       </div>
       <div class="algo-card fi">
-        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg></span>
         <span class="algo-badge">Continuous</span>
         <h3>Strategy Iteration</h3>
         <p>Market conditions shift. Our models are regularly reviewed, stress-tested and updated to reflect current volatility regimes and structural market changes.</p>
       </div>
       <div class="algo-card fi">
-        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+        <span class="ac-icon"><svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
         <span class="algo-badge">Infrastructure</span>
         <h3>Regulated Platforms</h3>
         <p>All algorithmic activity runs through internationally regulated, low-latency platforms built for professional trading operations.</p>
@@ -756,47 +948,47 @@
   </div>
 </section>
 
-<!-- ── ABOUT / FOUNDERS ── -->
+<div class="s-div"></div>
+
+<!-- ── LEADERSHIP ── -->
 <section id="about">
   <div class="container">
-    <span class="section-tag">Leadership</span>
-    <h2 class="section-title fi">The people behind Wealthon.</h2>
-    <div class="founders">
-      <div class="founder-lead">
-        <div class="founder fi">
-          <div class="f-av">S</div>
-          <div class="f-name">Suhan S.K.</div>
-          <div class="f-title">Co-Founder &amp; Analyst</div>
-          <div class="f-role">Trading, Research, Portfolio Analysis</div>
-          <p class="f-quote">"Every trade is backed by research, discipline and a clear risk framework. Performance is earned, not promised."</p>
-        </div>
+    <span class="eyebrow fi">Leadership</span>
+    <h2 class="s-title fi">The people behind Wealthon.</h2>
+    <div class="founders-grid">
+      <div class="founder fi">
+        <div class="f-av"><span>S</span></div>
+        <div class="f-name">Suhan S.K.</div>
+        <div class="f-title">Co-Founder &amp; Analyst</div>
+        <div class="f-role">Trading, Research, Portfolio Analysis</div>
+        <p class="f-quote">"Every trade is backed by research, discipline and a clear risk framework. Performance is earned, not promised."</p>
       </div>
-      <div class="founder-row">
-        <div class="founder fi">
-          <div class="f-av"><img src="pratik.jpeg" alt="Prathik R.N."></div>
-          <div class="f-name">Prathik R.N.</div>
-          <div class="f-title">Co-Founder &amp; Strategist</div>
-          <div class="f-role">Business, Operations, Client Relations</div>
-          <p class="f-quote">"Wealthon was built on one belief: that everyday people deserve access to professionally managed capital growth."</p>
-        </div>
-        <div class="founder fi">
-          <div class="f-av">SH</div>
-          <div class="f-name">Sumanth Hegde</div>
-          <div class="f-title">Technical Head</div>
-          <div class="f-role">Technology, Systems, Digital Infrastructure</div>
-          <p class="f-quote">"Technology should make trust transparent. Every system we build puts clarity and security first."</p>
-        </div>
+      <div class="founder fi">
+        <div class="f-av"><img src="pratik.jpeg" alt="Prathik R.N."></div>
+        <div class="f-name">Prathik R.N.</div>
+        <div class="f-title">Co-Founder &amp; Strategist</div>
+        <div class="f-role">Business, Operations, Client Relations</div>
+        <p class="f-quote">"Wealthon was built on one belief: that everyday people deserve access to professionally managed capital growth."</p>
+      </div>
+      <div class="founder fi">
+        <div class="f-av"><span>SH</span></div>
+        <div class="f-name">Sumanth Hegde</div>
+        <div class="f-title">Technical Head</div>
+        <div class="f-role">Technology, Systems, Digital Infrastructure</div>
+        <p class="f-quote">"Technology should make trust transparent. Every system we build puts clarity and security first."</p>
       </div>
     </div>
   </div>
 </section>
 
+<div class="s-div"></div>
+
 <!-- ── CONTACT ── -->
 <section id="contact">
   <div class="container">
-    <span class="section-tag" style="color:rgba(55,138,221,.75)">Get in touch</span>
-    <h2 class="section-title">Start a conversation.</h2>
-    <p class="section-subtitle">No commitment. No pressure. Just an honest conversation about whether this makes sense for you.</p>
+    <span class="eyebrow" style="color:rgba(201,168,76,.6)">Get in touch</span>
+    <h2 class="s-title">Start a conversation.</h2>
+    <p class="s-sub">No commitment. No pressure. Just an honest conversation about whether this makes sense for you.</p>
     <div class="contact-grid">
       <form class="cform fi" id="cform">
         <div class="ff">
@@ -811,18 +1003,18 @@
           <label>Brief message</label>
           <textarea id="f-msg" placeholder="What would you like to know?"></textarea>
         </div>
-        <button type="submit" class="btn-gold" style="width:100%;text-align:center;border:none;font-family:inherit;">Send via WhatsApp →</button>
+        <button type="submit" class="btn-gold-full">Send via WhatsApp →</button>
       </form>
       <div class="cdetails fi">
         <div class="cd">
-          <div class="cd-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div class="cd-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
           <div class="cd-txt">
             <label>Email</label>
             <a href="mailto:hello@wealthonventures.com">hello@wealthonventures.com</a>
           </div>
         </div>
         <div class="cd">
-          <div class="cd-icon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.7)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+          <div class="cd-icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
           <div class="cd-txt">
             <label>WhatsApp</label>
             <a href="https://wa.me/919035373664" target="_blank" rel="noopener">+91 90353 73664</a>
@@ -835,9 +1027,9 @@
   <footer>
     <div class="container">
       <div class="footer-top">
-        <div>
+        <div class="footer-brand">
           <img src="logo.png" alt="Wealthon Capital Ventures" class="footer-logo-img">
-          <p class="fl-tag">Where capital finds direction.</p>
+          <span class="fb-tag">Where capital finds direction.</span>
         </div>
         <ul class="footer-nav">
           <li><a href="#what">What We Do</a></li>
@@ -853,8 +1045,9 @@
   </footer>
 </section>
 
+<!-- ── FLOATING WHATSAPP ── -->
 <a href="https://wa.me/919035373664?text=Hi%20Wealthon%20Capital%20Ventures%2C%20I%20visited%20wealthonventures.com%20and%20I%27d%20like%20to%20learn%20more%20about%20capital%20partnership%20opportunities." target="_blank" rel="noopener" class="wa-btn" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" fill="#042C53" xmlns="http://www.w3.org/2000/svg">
+  <svg viewBox="0 0 24 24" fill="#080808" xmlns="http://www.w3.org/2000/svg">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
 </a>
@@ -862,7 +1055,7 @@
 <script>
   // Navbar scroll
   const nav = document.getElementById('nav');
-  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 56));
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 50));
 
   // Hamburger
   document.getElementById('burger').addEventListener('click', () => {
@@ -872,27 +1065,25 @@
     a.addEventListener('click', () => document.getElementById('nav-links').classList.remove('open'));
   });
 
-  // Scroll animations — only for sections below the fold, applied after load
-  // so hero content is NEVER hidden
+  // Scroll animations — below-fold sections only
   window.addEventListener('load', () => {
     const belowFold = document.querySelectorAll(
-      '#what .fi, #how .fi, #trust .fi, #calc .fi, #about .fi, #who .fi, #contact .fi'
+      '#what .fi, #how .fi, #trust .fi, #who .fi, #algo .fi, #about .fi, #contact .fi'
     );
     belowFold.forEach(el => el.classList.add('anim'));
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e, i) => {
         if (e.isIntersecting) {
-          setTimeout(() => e.target.classList.add('vis'), i * 60);
+          setTimeout(() => e.target.classList.add('vis'), i * 55);
           io.unobserve(e.target);
         }
       });
-    }, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -32px 0px' });
     belowFold.forEach(el => io.observe(el));
-    // Fallback: show all after 2s
-    setTimeout(() => belowFold.forEach(el => el.classList.add('vis')), 2000);
+    setTimeout(() => belowFold.forEach(el => el.classList.add('vis')), 2200);
   });
 
-  // Count-up hero stat
+  // Hero counter
   function countUp(el, to, ms, suffix) {
     const t0 = performance.now();
     (function tick(now) {
@@ -903,10 +1094,10 @@
     })(t0);
   }
   window.addEventListener('load', () => {
-    setTimeout(() => countUp(document.getElementById('stat-markets'), 3, 1200, ' markets'), 500);
+    setTimeout(() => countUp(document.getElementById('stat-markets'), 3, 1200, ' markets'), 600);
   });
 
-  // Calculator
+  // INR formatter
   function inr(n) {
     n = Math.round(n).toString();
     if (n.length <= 3) return '₹' + n;
@@ -914,16 +1105,25 @@
     var rest = n.slice(0, -3).replace(/\B(?=(\d{2})+(?!\d))/g, ',');
     return '₹' + rest + ',' + last3;
   }
+
+  // Slider fill update
+  function updateSliderFill(s) {
+    var min = parseFloat(s.min), max = parseFloat(s.max), val = parseFloat(s.value);
+    var pct = ((val - min) / (max - min)) * 100;
+    s.style.setProperty('--fill', pct + '%');
+  }
+
+  // Calculator
   function runCalc() {
     var s = document.getElementById('c-slider');
     if (!s) return;
     var cap = parseFloat(s.value);
+    updateSliderFill(s);
     document.getElementById('c-amt').textContent = inr(cap);
     document.getElementById('c-ann').textContent = inr(cap * 0.30);
     document.getElementById('c-qtr').textContent = inr(cap * 0.075);
     document.getElementById('c-3yr').textContent = inr(cap * 2.197);
   }
-  // Script is at end of body — DOM is already ready, bind directly
   var cSlider = document.getElementById('c-slider');
   if (cSlider) {
     cSlider.addEventListener('input', runCalc);
@@ -932,14 +1132,14 @@
   }
 
   // Contact form → WhatsApp
-  document.getElementById(‘cform’).addEventListener(‘submit’, function(e) {
+  document.getElementById('cform').addEventListener('submit', function(e) {
     e.preventDefault();
-    const name = document.getElementById(‘f-name’).value.trim();
-    const wa   = document.getElementById(‘f-wa’).value.trim();
-    const msg  = document.getElementById(‘f-msg’).value.trim();
-    let text = `Hi Wealthon Capital Ventures, I visited wealthonventures.com and I’d like to learn more about capital partnership opportunities.\n\nName: ${name}\nWhatsApp: ${wa}`;
+    const name = document.getElementById('f-name').value.trim();
+    const wa   = document.getElementById('f-wa').value.trim();
+    const msg  = document.getElementById('f-msg').value.trim();
+    let text = `Hi Wealthon Capital Ventures, I visited wealthonventures.com and I'd like to learn more about capital partnership opportunities.\n\nName: ${name}\nWhatsApp: ${wa}`;
     if (msg) text += `\nMessage: ${msg}`;
-    window.open(‘https://wa.me/919035373664?text=’ + encodeURIComponent(text), ‘_blank’);
+    window.open('https://wa.me/919035373664?text=' + encodeURIComponent(text), '_blank');
   });
 </script>
 </body>
